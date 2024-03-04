@@ -8,316 +8,288 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="55dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="116dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_default_small" />
-
-    <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="155dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_account"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logo" />
 
     <ImageButton
         android:id="@+id/btn_account"
-        android:layout_width="72dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:backgroundTint="#FFFFFF"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintStart_toEndOf="@+id/iv_logo"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ikon_account" />
 
     <View
         android:id="@+id/view2"
-        android:layout_width="415dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="76dp"
         android:background="#272626"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_account" />
 
     <View
         android:id="@+id/view3"
-        android:layout_width="415dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="848dp"
         android:background="#272626"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
-        android:id="@+id/btn_main"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="6dp"
-        android:backgroundTint="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/img_5" />
-
-    <ImageButton
-        android:id="@+id/btn_cataloge"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="6dp"
-        android:backgroundTint="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_main"
-        app:srcCompat="@mipmap/img_1" />
-
-    <ImageButton
-        android:id="@+id/btn_favorites"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginBottom="6dp"
-        android:backgroundTint="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_cataloge"
-        app:srcCompat="@mipmap/img_2" />
-
-    <ImageButton
-        android:id="@+id/btn_shop"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="6dp"
-        android:backgroundTint="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/img_4" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="255dp"
-        android:layout_height="165dp"
-        android:layout_marginTop="84dp"
-        android:background="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/editbox_dropdown_dark_frame" />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#FDFDFD"
-        app:tint="#6BA1A1"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton7"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:srcCompat="@android:drawable/radiobutton_off_background" />
-
-    <ImageButton
-        android:id="@+id/imageButton7"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#FDFDFD"
-        app:tint="#1F8888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:srcCompat="@android:drawable/radiobutton_on_background" />
-
-    <ImageButton
-        android:id="@+id/imageButton8"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#FDFDFD"
-        app:tint="#6BA1A1"
-        app:layout_constraintStart_toEndOf="@+id/imageButton7"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:srcCompat="@android:drawable/radiobutton_off_background" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="55dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="116dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_default_small" />
-
-    <ImageButton
-        android:id="@+id/btn_box"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toEndOf="@+id/btn_basket"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton7"
-        app:srcCompat="@mipmap/img_7" />
-
-    <ImageButton
-        android:id="@+id/btn_child"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toEndOf="@+id/btn_box"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton8"
-        app:srcCompat="@mipmap/img_8" />
-
-    <ImageButton
-        android:id="@+id/btn_basket"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toEndOf="@+id/btn_rose"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton7"
-        app:srcCompat="@mipmap/img_6" />
-
-    <ImageButton
-        android:id="@+id/btn_rose"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton6"
-        app:srcCompat="@mipmap/img_3" />
-
-    <ImageButton
-        android:id="@+id/btn_sale"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FDFDFD"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/btn_child"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton8"
-        app:srcCompat="@mipmap/img_9" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Розы"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_rose" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="59dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="40dp"
-        android:text="Цветы в корзине"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/btn_basket" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="62dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="28dp"
-        android:text="Цветы в коробке"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/btn_box" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="59dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="16dp"
-        android:text="Детский букет"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/btn_child" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="20dp"
-        android:text="Акция"
-        android:textAlignment="center"
-        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sale" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.991">
+
+        <ImageButton
+            android:id="@+id/btn_main"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FDFDFD"
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/img_5" />
+
+        <ImageButton
+            android:id="@+id/btn_cataloge"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FDFDFD"
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/img_1" />
+
+        <ImageButton
+            android:id="@+id/btn_favorites"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FDFDFD"
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/img_2" />
+
+        <ImageButton
+            android:id="@+id/btn_shop"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FDFDFD"
+            android:scaleType="centerInside"
+            app:srcCompat="@mipmap/img_4" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ViewAnimator">
+
+        <!-- Розы -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_rose"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:backgroundTint="#FDFDFD"
+                android:scaleType="centerCrop"
+                android:gravity="center"
+                app:srcCompat="@mipmap/img_3" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Розы"
+                android:textAlignment="center"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <!-- Цветы в коробке -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_box"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:backgroundTint="#FDFDFD"
+                android:scaleType="centerCrop"
+                android:gravity="center"
+                app:srcCompat="@mipmap/img_7" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Цветы в коробке"
+                android:textAlignment="center"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <!-- Детский букет -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_child"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:backgroundTint="#FDFDFD"
+                android:scaleType="centerCrop"
+                android:gravity="center"
+                app:srcCompat="@mipmap/img_8" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Детский букет"
+                android:textAlignment="center"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <!-- Цветы в корзине -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_basket"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:backgroundTint="#FDFDFD"
+                android:scaleType="centerCrop"
+                android:gravity="center"
+                app:srcCompat="@mipmap/img_6" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Цветы в корзине"
+                android:textAlignment="center"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <!-- Акция -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_sale"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:backgroundTint="#FDFDFD"
+                android:gravity="center"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/img_9" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Акция"
+                android:textAlignment="center"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="411dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="4dp"
-        android:background="#C6AFD7D7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#BCBAE6E9"
         android:text="Популярные букеты"
         android:textAlignment="center"
+        android:textAllCaps="false"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ScrollView
-        android:layout_width="421dp"
-        android:layout_height="369dp"
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <ViewAnimator
+        android:id="@+id/ViewAnimator"
+        android:layout_width="wrap_content"
+        android:layout_height="230dp"
         android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo">
 
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/banner3" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@mipmap/banner1" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@mipmap/banner2" />
+
+    </ViewAnimator>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
