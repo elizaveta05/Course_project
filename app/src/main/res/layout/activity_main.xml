@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="186dp"
+        android:layout_height="53dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logo" />
@@ -53,7 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintTop_toBottomOf="@+id/sv_popular"
         app:layout_constraintVertical_bias="0.991">
 
         <ImageButton
@@ -93,9 +93,10 @@
             app:srcCompat="@mipmap/img_4" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,8 +116,8 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="#FDFDFD"
-                android:scaleType="centerCrop"
                 android:gravity="center"
+                android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/img_3" />
 
             <TextView
@@ -141,8 +142,8 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="#FDFDFD"
-                android:scaleType="centerCrop"
                 android:gravity="center"
+                android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/img_7" />
 
             <TextView
@@ -167,8 +168,8 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="#FDFDFD"
-                android:scaleType="centerCrop"
                 android:gravity="center"
+                android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/img_8" />
 
             <TextView
@@ -193,8 +194,8 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="#FDFDFD"
-                android:scaleType="centerCrop"
                 android:gravity="center"
+                android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/img_6" />
 
             <TextView
@@ -238,7 +239,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:background="#BCBAE6E9"
         android:text="Популярные букеты"
         android:textAlignment="center"
@@ -252,21 +253,24 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/sv_popular"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <include layout="@layout/main_cataloge" />
+    </ScrollView>
 
     <ViewAnimator
         android:id="@+id/ViewAnimator"
         android:layout_width="wrap_content"
         android:layout_height="230dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="3dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
