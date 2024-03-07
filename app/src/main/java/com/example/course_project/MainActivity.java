@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Picasso.get().load(bouquet.getImage()).into(imageView);
                 productName.setText(bouquet.getName());
-                productPrice.setText(String.valueOf(bouquet.getPrice()));
+                productPrice.setText(String.format("%s ₽", bouquet.getPrice()));
 
                 llContent.addView(itemView);
             }

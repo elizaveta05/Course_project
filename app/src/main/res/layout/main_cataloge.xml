@@ -9,52 +9,64 @@
         android:id="@+id/view"
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/turquoise"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="141dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/view"
         app:srcCompat="@mipmap/image_flower" />
 
     <TextView
         android:id="@+id/ProductName"
-        android:layout_width="131dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="12dp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="5dp"
         android:text="ProductName"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/ProductPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="12dp"
         android:text="ProductPrice"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/ProductName" />
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view" />
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="37dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="27dp"
+        android:layout_height="28dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#CAEFF0"
-        android:scaleType="centerCrop"
+        android:scaleType="center"
+        android:src="@android:drawable/ic_menu_add"
+        android:tint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.423"
         app:layout_constraintStart_toEndOf="@+id/ProductPrice" />
 
     <ImageButton
@@ -63,6 +75,7 @@
         android:layout_height="34dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/turquoise"
         android:scaleType="centerCrop"
         android:src="@mipmap/ikon_favorite"
         app:layout_constraintEnd_toEndOf="@+id/view"

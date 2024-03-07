@@ -15,8 +15,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 public class BouquetsAdapter extends RecyclerView.Adapter<BouquetsAdapter.BouquetsViewHolder> {
 
-    private Context context;
-    private ArrayList<Bouquets> bouquetsList;
+    private final Context context;
+    private final ArrayList<Bouquets> bouquetsList;
 
     public BouquetsAdapter(Context context, ArrayList<Bouquets> bouquetsList) {
         this.context = context;
@@ -41,7 +41,7 @@ public class BouquetsAdapter extends RecyclerView.Adapter<BouquetsAdapter.Bouque
         return bouquetsList.size();
     }
 
-    public class BouquetsViewHolder extends RecyclerView.ViewHolder {
+    public static class BouquetsViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView productName;
         TextView productPrice;
