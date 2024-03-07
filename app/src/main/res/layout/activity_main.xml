@@ -9,8 +9,10 @@
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="186dp"
-        android:layout_height="53dp"
+        android:layout_width="156dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="24dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logo" />
@@ -31,7 +33,7 @@
         android:id="@+id/view2"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="#272626"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +43,7 @@
         android:id="@+id/view3"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="#272626"
+        android:background="@color/grey"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -126,7 +128,8 @@
                 android:layout_height="wrap_content"
                 android:text="Розы"
                 android:textAlignment="center"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- Цветы в коробке -->
@@ -152,7 +155,8 @@
                 android:layout_height="wrap_content"
                 android:text="Цветы в коробке"
                 android:textAlignment="center"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- Детский букет -->
@@ -178,7 +182,8 @@
                 android:layout_height="wrap_content"
                 android:text="Детский букет"
                 android:textAlignment="center"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- Цветы в корзине -->
@@ -204,7 +209,8 @@
                 android:layout_height="wrap_content"
                 android:text="Цветы в корзине"
                 android:textAlignment="center"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- Акция -->
@@ -230,7 +236,8 @@
                 android:layout_height="wrap_content"
                 android:text="Акция"
                 android:textAlignment="center"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -240,12 +247,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#BCBAE6E9"
+        android:background="@color/yellow"
         android:text="Популярные букеты"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -268,8 +275,8 @@
 
     <ViewAnimator
         android:id="@+id/ViewAnimator"
-        android:layout_width="wrap_content"
-        android:layout_height="230dp"
+        android:layout_width="0dp"
+        android:layout_height="209dp"
         android:layout_marginTop="3dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -289,8 +296,8 @@
             android:src="@mipmap/banner1" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="centerInside"
             android:src="@mipmap/banner2" />
 
