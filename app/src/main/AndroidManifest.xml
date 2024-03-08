@@ -15,6 +15,12 @@
         android:theme="@style/Theme.Course_project"
         tools:targetApi="31">
         <activity
+            android:name=".Registration"
+            android:exported="false" />
+        <activity
+            android:name=".Authorization"
+            android:exported="false" />
+        <activity
             android:name=".activity_account"
             android:exported="false" />
         <activity

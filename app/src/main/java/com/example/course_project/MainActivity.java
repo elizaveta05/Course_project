@@ -1,5 +1,6 @@
 package com.example.course_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -7,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewAnimator;
@@ -21,7 +22,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btnAccount = findViewById(R.id.btn_account);
         btnAccount.setOnClickListener(v -> {
             Toast.makeText(MainActivity.this, "Clicked on Account button", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, activity_account.class);
+            startActivity(intent);
         });
 
         // Настройка баннера с анимацией перехода
         ViewAnimator viewAnimator = findViewById(R.id.ViewAnimator);
         viewAnimator.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
         viewAnimator.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out_left));
-
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int i = 0;

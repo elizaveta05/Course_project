@@ -7,8 +7,17 @@
 
     <style name="Theme.Course_project" parent="Base.Theme.Course_project" />
     <!-- Splash screen. -->
-    <style name ="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:statusBarColor">@color/turquoise</item>
     </style>
+
+    <style name="Theme.Course_project.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Course_project.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Course_project.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
