@@ -1,6 +1,7 @@
 package com.example.course_project;
 
 public class Bouquets {
+    //Модель данных из БД
     private String name;
     private String description;
     private String image;

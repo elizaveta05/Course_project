@@ -9,7 +9,7 @@
         android:id="@+id/view"
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_corner_background"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,15 +59,14 @@
         android:id="@+id/imageButton"
         android:layout_width="27dp"
         android:layout_height="28dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#CAEFF0"
         android:scaleType="center"
         android:src="@android:drawable/ic_menu_add"
-        android:tint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintHorizontal_bias="0.423"
-        app:layout_constraintStart_toEndOf="@+id/ProductPrice" />
+        app:tint="@color/black" />
 
     <ImageButton
         android:id="@+id/imageButton2"

@@ -99,6 +99,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,8 +130,8 @@
                     android:src="@mipmap/banner1" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:scaleType="centerInside"
                     android:src="@mipmap/banner2" />
 
@@ -154,7 +155,7 @@
                         android:id="@+id/btn_rose"
                         android:layout_width="65dp"
                         android:layout_height="65dp"
-                        android:backgroundTint="#FDFDFD"
+                        android:backgroundTint="@color/white"
                         android:gravity="center"
                         android:scaleType="centerCrop"
                         app:srcCompat="@mipmap/img_3" />
@@ -292,11 +293,12 @@
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
-            <LinearLayout
+            <GridLayout
                 android:id="@+id/ll_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:orientation="horizontal"/>
 
         </LinearLayout>
     </ScrollView>
