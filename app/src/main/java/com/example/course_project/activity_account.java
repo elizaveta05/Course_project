@@ -12,7 +12,6 @@ public class activity_account extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-
         Button btnAuthorization = findViewById(R.id.btn_authorization);
         btnAuthorization.setOnClickListener(v->{
             Intent intent = new Intent(this,Authorization.class);

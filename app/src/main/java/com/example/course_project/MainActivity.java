@@ -28,9 +28,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Настройка обработчиков клика для кнопки "Аккаунт"
-        ImageButton btnAccount = findViewById(R.id.btn_account);
+        ImageButton btnAccount = findViewById(R.id.btn_back);
         btnAccount.setOnClickListener(v -> {
-            Toast.makeText(MainActivity.this, "Clicked on Account button", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, activity_account.class);
             startActivity(intent);
         });
