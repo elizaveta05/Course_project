@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="RelativeLayout1" type="id" />
+    <item name="RelativeLayout2" type="id" />
+    <item name="RelativeLayout3" type="id" />
+    <item name="RelativeLayout4" type="id" />
+    <item name="RelativeLayout5" type="id" />
+    <item name="RelativeLayout6" type="id" />
+    <item name="RelativeLayout7" type="id" />
+    <item name="RelativeLayout8" type="id" />
+</resources>

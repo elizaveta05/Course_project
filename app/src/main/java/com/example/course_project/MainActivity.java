@@ -16,6 +16,8 @@ import android.widget.ViewAnimator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
@@ -27,13 +29,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Настройка обработчиков клика для кнопки "Аккаунт"
-        ImageButton btnAccount = findViewById(R.id.btn_back);
-        btnAccount.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, activity_account.class);
+        // Настройка обработчика клика для кнопки "Аккаунт"
+        ImageButton btn_account = findViewById(R.id.btn_account);
+        btn_account.setOnClickListener(v -> {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+            if (currentUser != null) {
+                // Пользователь найден, переходим на экран PersonalAccount
+                Intent intent = new Intent(MainActivity.this, PersonalAccount.class);
+                startActivity(intent);
+            } else {
+                // Пользователь не найден, переходим на экран activity_account
+                Intent intent = new Intent(MainActivity.this, activity_account.class);
+                startActivity(intent);
+            }
+        });
+        // Настройка обработчиков клика для кнопки "Избранное"
+        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
+        btn_cataloge.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Favorite.class);
             startActivity(intent);
         });
-
+        // Настройка обработчиков клика для кнопки "Корзина"
+        ImageButton btn_shop = findViewById(R.id.btn_shop);
+        btn_shop.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ShoppingCart.class);
+            startActivity(intent);
+        });
+        // Настройка обработчиков клика для кнопки "Категории"
+        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
+        btn_favorites.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Category.class);
+            startActivity(intent);
+        });
         // Настройка баннера с анимацией перехода
         ViewAnimator viewAnimator = findViewById(R.id.ViewAnimator);
         viewAnimator.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));

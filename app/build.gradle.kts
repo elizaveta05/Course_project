@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -44,7 +45,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth:22.3.1")
 
     // Библиотека Firebase Firestore для работы с облачной базой данных Firestore
-    implementation ("com.google.firebase:firebase-firestore:24.10.3")
+    implementation ("com.google.firebase:firebase-firestore:24.11.0")
 
     // Библиотека Picasso для загрузки и отображения изображений
     implementation ("com.squareup.picasso:picasso:2.71828")
@@ -66,6 +67,9 @@ dependencies {
 
     // Библиотека Activity из пакета androidx для работы со структурой Activity
     implementation("androidx.activity:activity:1.8.2")
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("androidx.navigation:navigation-fragment:2.7.7")
+    implementation("androidx.navigation:navigation-ui:2.7.7")
 
     // Зависимость для тестирования с использованием JUnit
     testImplementation("junit:junit:4.13.2")
