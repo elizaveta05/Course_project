@@ -10,6 +10,9 @@ public class User {
         this.date = date;
         this.phone = phone;
     }
+    public User() {
+        // Пустой конструктор по умолчанию для Firebase
+    }
 
     public String getName() {
         return name;

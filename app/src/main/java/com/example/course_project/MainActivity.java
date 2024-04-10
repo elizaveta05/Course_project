@@ -30,23 +30,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Настройка обработчика клика для кнопки "Аккаунт"
-        ImageButton btn_account = findViewById(R.id.btn_account);
+        ImageButton btn_account = findViewById(R.id.btn_back);
         btn_account.setOnClickListener(v -> {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
             if (currentUser != null) {
                 // Пользователь найден, переходим на экран PersonalAccount
-                Intent intent = new Intent(MainActivity.this, PersonalAccount.class);
+                Intent intent = new Intent(this, PersonalAccount.class);
                 startActivity(intent);
             } else {
                 // Пользователь не найден, переходим на экран activity_account
-                Intent intent = new Intent(MainActivity.this, activity_account.class);
+                Intent intent = new Intent(this, activity_account.class);
                 startActivity(intent);
             }
         });
         // Настройка обработчиков клика для кнопки "Избранное"
-        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
-        btn_cataloge.setOnClickListener(v -> {
+        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
+        btn_favorites.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Favorite.class);
             startActivity(intent);
         });
@@ -56,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ShoppingCart.class);
             startActivity(intent);
         });
-        // Настройка обработчиков клика для кнопки "Категории"
-        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
-        btn_favorites.setOnClickListener(v -> {
+        // Настройка обработчиков клика для кнопки "Каталог"
+        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
+        btn_cataloge.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Category.class);
             startActivity(intent);
         });

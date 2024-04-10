@@ -37,6 +37,10 @@ android {
 }
 
 dependencies {
+
+    // Библиотека play-services-safetynet используется для работы с SafetyNet API, который предоставляет функции безопасности на устройствах Android
+    implementation ("com.google.android.gms:play-services-safetynet:18.0.1")
+
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     // Библиотека Firebase Realtime Database для работы с базой данных в реальном времени
     implementation ("com.google.firebase:firebase-database:20.3.1")
@@ -67,7 +71,6 @@ dependencies {
 
     // Библиотека Activity из пакета androidx для работы со структурой Activity
     implementation("androidx.activity:activity:1.8.2")
-    implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("androidx.navigation:navigation-fragment:2.7.7")
     implementation("androidx.navigation:navigation-ui:2.7.7")
 

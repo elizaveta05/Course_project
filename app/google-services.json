@@ -2,7 +2,8 @@
   "project_info": {
     "project_number": "205707989512",
     "project_id": "course-project-9a1b1",
-    "storage_bucket": "course-project-9a1b1.appspot.com"
+    "storage_bucket": "course-project-9a1b1.appspot.com",
+    "firebase_url": "https://course-project-9a1b1-default-rtdb.europe-west1.firebasedatabase.app"
   },
   "client": [
     {

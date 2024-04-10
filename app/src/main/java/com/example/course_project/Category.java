@@ -6,6 +6,9 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class Category extends AppCompatActivity {
 
     @Override
@@ -31,6 +34,18 @@ public class Category extends AppCompatActivity {
             Intent intent = new Intent(this, ShoppingCart.class);
             startActivity(intent);
         });
-
+        ImageButton btn_account = findViewById(R.id.btn_back);
+        btn_account.setOnClickListener(v -> {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                // Пользователь найден, переходим на экран PersonalAccount
+                Intent intent = new Intent(this, PersonalAccount.class);
+                startActivity(intent);
+            } else {
+                // Пользователь не найден, переходим на экран activity_account
+                Intent intent = new Intent(this, activity_account.class);
+                startActivity(intent);
+            }
+        });
     }
 }
