@@ -3,6 +3,7 @@ package com.example.course_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -72,7 +73,7 @@ public class Registration extends AppCompatActivity {
         Button btnRegister = findViewById(R.id.btn_regis);
         EditText editTextCode = findViewById(R.id.tt_code);
 
-        btnRegister.setEnabled(false);
+        btnRegister.setVisibility(View.GONE); // Скрываем кнопку "Зарегистрироваться"
         editTextCode.setEnabled(false);
 
         btnAdd.setOnClickListener(v -> {
@@ -114,8 +115,8 @@ public class Registration extends AppCompatActivity {
 
                 editTextCode.setEnabled(true);
                 editTextCode.requestFocus();
-                btnAdd.setEnabled(false);
-                btnRegister.setEnabled(true);
+                btnAdd.setVisibility(View.GONE);;
+                btnRegister.setVisibility(View.VISIBLE);;
 
                 btnRegister.setOnClickListener(v -> {
                     String inputCode = editTextCode.getText().toString().trim();

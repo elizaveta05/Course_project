@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,6 +15,9 @@
         android:theme="@style/Theme.Course_project"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".List_of_stores"
+            android:exported="false" />
+        <activity
             android:name=".ShoppingCart"
             android:exported="true" />
         <activity
@@ -21,7 +25,7 @@
             android:exported="true" />
         <activity
             android:name=".KlientOrder"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".PersonalAccount"
             android:exported="true" />
@@ -54,4 +58,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

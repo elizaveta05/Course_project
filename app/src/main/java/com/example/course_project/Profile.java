@@ -13,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +28,6 @@ public class Profile extends AppCompatActivity {
     private EditText editTextName;
     private EditText editTextDate;
     private EditText editTextPhone;
-    private String phoneDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +95,6 @@ public class Profile extends AppCompatActivity {
                         editTextName.setText(name);
                         editTextDate.setText(date);
                         editTextPhone.setText(phone);
-                        phoneDB =phone;
                     }
                 }
 
@@ -111,49 +107,28 @@ public class Profile extends AppCompatActivity {
                 // Открытие EditText для редактирования
                 editTextName.setEnabled(true);
                 editTextDate.setEnabled(true);
-                editTextPhone.setEnabled(true);
                 btn_save.setVisibility(View.VISIBLE); // Открываем кнопку "Сохранения изменений"
             });
             btn_save.setOnClickListener(v -> {
                 String name = editTextName.getText().toString().trim();
                 String date = editTextDate.getText().toString().trim();
-                String phone = editTextPhone.getText().toString().trim();
 
                 // Проверка данных
                 if (name.isEmpty() || name.length() < 3 || name.length() > 50 ||
-                        phone.isEmpty() || !phone.matches("^[+][1-9]\\d{10}$") ||
                         date.isEmpty() || !date.matches("^\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d$")) {
                     // Проверки данных не прошли, не сохраняем и не обновляем номер телефона
                     Toast.makeText(Profile.this, "Ошибка валидации данных", Toast.LENGTH_SHORT).show();
                     return;
-                }else if (!phoneDB.equals(phone)) {
-                    // Номер телефона был изменен, обновляем его в Firebase Authentication
-                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(currentUser.getPhoneNumber(), phone);
-                    //ВОТ ТУТ ПРОБЛЕМА
-                    currentUser.updatePhoneNumber(credential)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Profile.this, "Номер телефона успешно обновлен", Toast.LENGTH_SHORT).show();
-                                    // Сохранение данных в Firebase Realtime Database
-                                    usersRef.child("name").setValue(name);
-                                    usersRef.child("date").setValue(date);
-                                    usersRef.child("phone").setValue(phone);
-                                } else {
-                                    Toast.makeText(Profile.this, "Ошибка при обновлении номера телефона", Toast.LENGTH_SHORT).show();
-                                }
-                            });
                 }else {
                     // Сохранение данных в Firebase Realtime Database
                     usersRef.child("name").setValue(name);
                     usersRef.child("date").setValue(date);
-                    usersRef.child("phone").setValue(phone);
                     Toast.makeText(Profile.this, "Данные успешно обновлены", Toast.LENGTH_SHORT).show();
                 }
 
                 // Закрытие текстовых полей и скрытие кнопки сохранения
                 editTextName.setEnabled(false);
                 editTextDate.setEnabled(false);
-                editTextPhone.setEnabled(false);
                 btn_edit.setVisibility(View.VISIBLE);
                 btn_save.setVisibility(View.GONE);
 
@@ -171,7 +146,12 @@ public class Profile extends AppCompatActivity {
             deleteAccountButton.setOnClickListener(v -> {
                 // Удаление аккаунта из Firebase
                 usersRef.removeValue();
-                currentUser.delete();
+                currentUser.delete()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(Profile.this, "Профиль удален!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             });

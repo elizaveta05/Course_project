@@ -82,7 +82,7 @@ public class PersonalAccount extends AppCompatActivity {
 
         Button btn_magazine = findViewById(R.id.btn_magazine);
         btn_magazine.setOnClickListener(v -> {
-            Intent intent = new Intent(PersonalAccount.this, Shop.class);
+            Intent intent = new Intent(PersonalAccount.this, List_of_stores.class);
             startActivity(intent);
         });
         ImageButton btn_back=findViewById(R.id.btn_back);

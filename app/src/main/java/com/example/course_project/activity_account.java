@@ -24,6 +24,11 @@ public class activity_account extends AppCompatActivity {
             Intent intent = new Intent(this,Registration.class);
             startActivity(intent);
         });
+        Button btn_magazine = findViewById(R.id.btn_magazine);
+        btn_magazine.setOnClickListener(v -> {
+            Intent intent = new Intent(this, List_of_stores.class);
+            startActivity(intent);
+        });
         // Настройка обработчиков клика для кнопки "Главный экран"
         ImageButton btn_main = findViewById(R.id.btn_main);
         btn_main.setOnClickListener(v -> {
