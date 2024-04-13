@@ -73,6 +73,7 @@ dependencies {
     implementation("androidx.activity:activity:1.8.2")
     implementation("androidx.navigation:navigation-fragment:2.7.7")
     implementation("androidx.navigation:navigation-ui:2.7.7")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     // Зависимость для тестирования с использованием JUnit
     testImplementation("junit:junit:4.13.2")

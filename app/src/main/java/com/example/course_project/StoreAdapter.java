@@ -1,12 +1,16 @@
 package com.example.course_project;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHolder> {
@@ -33,10 +37,23 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     @Override
     public void onBindViewHolder(@NonNull StoreViewHolder holder, int position) {
         Store store = storeList.get(position);
-        holder.streetTextView.setText(store.getAddress());
-        holder.telephoneTextView.setText(String.format("Телефон: %s", store.getTelephone()));
-        holder.emailTextView.setText(String.format("Почта: %s", store.getEmail()));
-        holder.timeTextView.setText(String.format("Время работы: %s", store.getTime()));
+
+        holder.streetTextView.setText("Адрес: " + store.getAddress());
+        holder.telephoneTextView.setText("Телефон: " + store.getTelephone());
+        holder.emailTextView.setText("Почта: " + store.getEmail());
+        holder.timeTextView.setText("Время работы: " + store.getTime());
+
+        // Добавляем кликабельную ссылку на номер телефона
+        holder.telephoneTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + store.getTelephone()));
+            context.startActivity(intent);
+        });
+
+        // Добавляем кликабельную ссылку на адрес электронной почты
+        holder.emailTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + store.getEmail()));
+            context.startActivity(Intent.createChooser(intent, "Открыть через..."));
+        });
     }
     @Override
     public int getItemCount() {

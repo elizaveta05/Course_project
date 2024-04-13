@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,67 +14,77 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
 public class BouquetsAdapter extends RecyclerView.Adapter<BouquetsAdapter.BouquetsViewHolder> {
 
-    // Контекст приложения
-    private final Context context;
+    private Context context; // Контекст приложения
+    private ArrayList<Bouquets> bouquetsList; // Список всех букетов
+    private ArrayList<Bouquets> favoriteBouquetsList = new ArrayList<>(); // Список избранных букетов
+    private FavoritesListener favoritesListener; // Обработчик нажатия на избранное
 
-    // Список букетов
-    private final ArrayList<Bouquets> bouquetsList;
-
-    // Конструктор адаптера
-    public BouquetsAdapter(Context context, ArrayList<Bouquets> bouquetsList) {
+    public BouquetsAdapter(Context context, ArrayList<Bouquets> bouquetsList, FavoritesListener favoritesListener) {
         this.context = context;
         this.bouquetsList = bouquetsList;
+        this.favoritesListener = favoritesListener;
     }
 
     @NonNull
     @Override
-    // Создание нового ViewHolder при необходимости
     public BouquetsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Создание нового представления View из макета main_cataloge
-        View view = LayoutInflater.from(context).inflate(R.layout.main_cataloge, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.main_cataloge, parent, false); // Создаем новое представление View из макета
         return new BouquetsViewHolder(view);
     }
 
     @Override
-    // Привязка данных к ViewHolder при прокрутке списка
     public void onBindViewHolder(@NonNull BouquetsViewHolder holder, int position) {
-        // Получение букета по позиции
-        Bouquets bouquet = bouquetsList.get(position);
-        // Вызов метода bind для заполнения ViewHolder данными
-        holder.bind(bouquet);
+        Bouquets bouquet = bouquetsList.get(position); // Получение букета по позиции
+        holder.bind(bouquet); // Установка данных букета во ViewHolder
+
+        holder.btnFavorite.setOnClickListener(v -> { // Обработчик нажатия на кнопку "Избранное"
+            Bouquets selectedBouquet = bouquetsList.get(holder.getAdapterPosition());
+            if (!favoriteBouquetsList.contains(selectedBouquet)) {
+                favoriteBouquetsList.add(selectedBouquet); // Если букет не в списке избранных, добавляем его
+            } else {
+                favoriteBouquetsList.remove(selectedBouquet); // Если букет уже в списке избранных, удаляем его
+            }
+            notifyItemChanged(holder.getAdapterPosition()); // Обновляем только один элемент
+        });
     }
 
     @Override
-    // Возвращает количество элементов в списке
     public int getItemCount() {
-        return bouquetsList.size();
+        return bouquetsList.size(); // Возвращает количество элементов в списке
     }
 
-    public static class BouquetsViewHolder extends RecyclerView.ViewHolder {
-        // Виджеты, отображающие данные букета
+    public class BouquetsViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView productName;
         TextView productPrice;
+        ImageButton btnFavorite;
 
-        // Конструктор ViewHolder
         public BouquetsViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Инициализация виджетов из макета
             imageView = itemView.findViewById(R.id.imageView);
             productName = itemView.findViewById(R.id.ProductName);
             productPrice = itemView.findViewById(R.id.ProductPrice);
+            btnFavorite = itemView.findViewById(R.id.btn_favority);
         }
 
-        // Метод для заполнения ViewHolder данными букета
         public void bind(Bouquets bouquet) {
-            // Загрузка изображения букета
-            Picasso.get().load(bouquet.getImage()).into(imageView);
-            // Установка названия букета
-            productName.setText(bouquet.getName());
-            // Установка цены букета
-            productPrice.setText(String.valueOf(bouquet.getPrice()));
+            Picasso.get().load(bouquet.getImage()).into(imageView); // Загружаем изображение букета
+            productName.setText(bouquet.getName()); // Устанавливаем название букета
+            productPrice.setText(String.valueOf(bouquet.getCost())); // Устанавливаем цену букета
+
+            // Устанавливаем изображение кнопки "Избранное" в зависимости от наличия в списке избранных
+            if (favoriteBouquetsList.contains(bouquet)) {
+                btnFavorite.setImageResource(R.mipmap.ikon_favorite_add); // Если букет уже в списке избранных
+            } else {
+                btnFavorite.setImageResource(R.mipmap.ikon_favorite); // Если букет не в списке избранных
+            }
         }
+    }
+
+    public interface FavoritesListener {
+        void onFavoriteClick(Bouquets bouquet); // Интерфейс для обработки нажатия на "Избранное"
     }
 }

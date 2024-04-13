@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SENDTO" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -15,8 +20,11 @@
         android:theme="@style/Theme.Course_project"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".View_categories"
+            android:exported="true" />
+        <activity
             android:name=".List_of_stores"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ShoppingCart"
             android:exported="true" />

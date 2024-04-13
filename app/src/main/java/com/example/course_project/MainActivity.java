@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewAnimator;
@@ -24,6 +25,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
+    private ArrayList<Bouquets> popularBouquetsList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance(); // Инициализация объекта для взаимодействия с Firestore
 
         // Получение коллекции "Popular bouquets" из Firestore и добавление слушателя успеха и ошибки
-        db.collection("Popular bouquets").get()
+        db.collection("PopularBouquets").get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     ArrayList<Bouquets> bouquetsList = new ArrayList<>(); // Создание списка для хранения данных о букетах
 
@@ -107,8 +109,38 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("Error", "Failed to get data from database", e); // Логирование ошибки получения данных из базы данных
                     Toast.makeText(MainActivity.this, "Failed to get data from database", Toast.LENGTH_SHORT).show(); // Отображение сообщения об ошибке через Toast
                 });
+
+        LinearLayout ll_ready_bouquets = findViewById(R.id.ll_ready_bouquets);
+        ll_ready_bouquets.setOnClickListener(v -> loadBouquetsByCategory("Готовые букеты"));
+        ImageButton btn_rose = findViewById(R.id.btn_rose);
+        btn_rose.setOnClickListener(v -> loadBouquetsByCategory("Готовые букеты"));
+
+        LinearLayout ll_basket = findViewById(R.id.ll_basket);
+        ll_basket.setOnClickListener(v -> loadBouquetsByCategory("Букеты в корзине"));
+        ImageButton btn_basket = findViewById(R.id.btn_basket);
+        btn_basket.setOnClickListener(v -> loadBouquetsByCategory("Букеты в корзине"));
+
+        LinearLayout ll_box = findViewById(R.id.ll_box);
+        ll_box.setOnClickListener(v -> loadBouquetsByCategory("Букеты в коробке"));
+        ImageButton btn_box = findViewById(R.id.btn_box);
+        btn_box.setOnClickListener(v -> loadBouquetsByCategory("Букеты в коробке"));
+
+        LinearLayout ll_child = findViewById(R.id.ll_child);
+        ll_child.setOnClickListener(v -> loadBouquetsByCategory("Детские букеты"));
+        ImageButton btn_child = findViewById(R.id.btn_child);
+        btn_child.setOnClickListener(v -> loadBouquetsByCategory("Детские букеты"));
+
+        LinearLayout ll_sale = findViewById(R.id.ll_sale);
+        ll_sale.setOnClickListener(v -> loadBouquetsByCategory("Акция"));
+        ImageButton btn_sale = findViewById(R.id.btn_sale);
+        btn_sale.setOnClickListener(v -> loadBouquetsByCategory("Акция"));
     }
 
+    private void loadBouquetsByCategory(String category) {
+        Intent intent = new Intent(this, View_categories.class);
+        intent.putExtra("categoryName", category);
+        startActivity(intent);
+    }
     // Метод для установки данных в GridLayout адаптер
     private void setAdapterData(ArrayList<Bouquets> bouquetsList) {
         GridLayout gridLayout = findViewById(R.id.ll_content); // Получение ссылки на GridLayout с id ll_content
@@ -131,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             productName.setText(bouquet.getName());
 
             // Установка текста цены букета с добавлением символа валюты ₽ в соответствующий TextView
-            productPrice.setText(String.format("%s ₽", bouquet.getPrice()));
+            productPrice.setText(String.format("%s ₽", bouquet.getCost()));
 
             // Установка параметров компонентов GridLayout для представления элемента
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();

@@ -145,6 +145,7 @@
 
                 <!-- Розы -->
                 <LinearLayout
+                    android:id="@+id/ll_ready_bouquets"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -172,6 +173,7 @@
 
                 <!-- Цветы в коробке -->
                 <LinearLayout
+                    android:id="@+id/ll_box"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -199,6 +201,7 @@
 
                 <!-- Детский букет -->
                 <LinearLayout
+                    android:id="@+id/ll_child"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -226,6 +229,7 @@
 
                 <!-- Цветы в корзине -->
                 <LinearLayout
+                    android:id="@+id/ll_basket"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -253,6 +257,7 @@
 
                 <!-- Акция -->
                 <LinearLayout
+                    android:id="@+id/ll_sale"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

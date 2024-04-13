@@ -1,19 +1,37 @@
 package com.example.course_project;
 
+import com.google.firebase.firestore.PropertyName;
+
 public class Bouquets {
-    //Модель данных из БД
+    @PropertyName("Name")
     private String name;
+
+    @PropertyName("Description")
     private String description;
+
+    @PropertyName("Image")
     private String image;
-    private String price;
+
+    @PropertyName("Cost")
+    private String cost;
+
+    @PropertyName("Category")
+    private String category;
+
+    @PropertyName("Composition")
+    private String composition;
+
     public Bouquets() {
+        // Пустой конструктор (необходим для Firebase)
     }
 
-    public Bouquets(String name, String description, String image, String price) {
+    public Bouquets(String name, String description, String image, String cost, String category, String composition) {
         this.name = name;
         this.description = description;
         this.image = image;
-        this.price = price;
+        this.cost = cost;
+        this.category = category;
+        this.composition = composition;
     }
 
     public String getName() {
@@ -40,11 +58,27 @@ public class Bouquets {
         this.image = image;
     }
 
-    public String getPrice() {
-        return price;
+    public String getCost() {
+        return cost;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getComposition() {
+        return composition;
+    }
+
+    public void setComposition(String composition) {
+        this.composition = composition;
     }
 }

@@ -101,6 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7">
@@ -116,7 +117,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/btn_ready_bouquets"
                     android:layout_width="205dp"
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_button"
@@ -143,7 +144,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/btn_birthday_bouquets"
                     android:layout_width="205dp"
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_button"
@@ -177,7 +178,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/imageButton7"
+                    android:id="@+id/btn_bouquets_basket"
                     android:layout_width="205dp"
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_button"
@@ -190,7 +191,7 @@
                     android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Букеты в коробке"
+                    android:text="Букеты в корзине"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
@@ -204,7 +205,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/imageButton8"
+                    android:id="@+id/btn_bouquets_box"
                     android:layout_width="205dp"
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_button"
@@ -237,7 +238,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/imageButton9"
+                    android:id="@+id/btn_bouquets_child"
                     android:layout_width="205dp"
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_button"
@@ -264,7 +265,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/imageButton10"
+                    android:id="@+id/btn_monobouquets"
                     android:layout_width="205dp"
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_button"
@@ -297,7 +298,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/imageButton11"
+                    android:id="@+id/btn_wedding_bouquets"
                     android:layout_width="205dp"
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_button"
@@ -324,7 +325,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/imageButton12"
+                    android:id="@+id/btn_sale"
                     android:layout_width="205dp"
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_button"
@@ -353,26 +354,31 @@
         android:layout_width="0dp"
         android:layout_height="25dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="51dp"
-        android:background="#A4F3D250"
+        android:background="@color/yellow"
+        app:layout_constraintBottom_toTopOf="@+id/view3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view4" />
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:text="Каталог букетов"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/view3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
