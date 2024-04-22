@@ -2,125 +2,127 @@ package com.example.course_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class View_categories extends AppCompatActivity {
+public class View_categories extends AppCompatActivity implements BouquetsAdapter.FavoritesListener {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<Bouquets> bouquetsList = new ArrayList<>();
+    private BouquetsAdapter adapter; // Объявление объекта адаптера
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_categories);
 
+        // Инициализация RecyclerView
+        recyclerView = findViewById(R.id.ll_content);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        ImageButton btn_back = findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(v -> {
-            startActivity(new Intent(this, Category.class));
-        });
-        ImageButton btn_main = findViewById(R.id.btn_main);
-        btn_main.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-        });
-        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
-        btn_cataloge.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Category.class);
-            startActivity(intent);
-        });
+        // Настройка кнопок навигации
+        setupClickListeners();
 
-        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
-        btn_favorites.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Favorite.class);
-            startActivity(intent);
-        });
-
-        ImageButton btn_shop = findViewById(R.id.btn_shop);
-        btn_shop.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Shop.class);
-            startActivity(intent);
-        });
-
-        // Получение данных о категории
+        // Получение данных о выбранной категории и отображение названия
         String categoryName = getIntent().getStringExtra("categoryName");
-        // Отобразить название категории
-        TextView tv_name = findViewById(R.id.tv_name);
+        TextView tv_name = findViewById(R.id.tv_result);
         tv_name.setText(categoryName);
 
         // Загрузка букетов по выбранной категории
         loadBouquetsByCategory(categoryName);
+    }
+    // Настройка обработчиков клика для кнопок
+    private void setupClickListeners() {
+        // Устанавливаем обработчики кликов для кнопок навигации
+        ImageButton btn_main = findViewById(R.id.btn_main);
+        btn_main.setOnClickListener(v -> startNewActivity(MainActivity.class));
+        overridePendingTransition(0, 0); // Убрать анимацию перехода
 
+        ImageButton btn_favorite = findViewById(R.id.btn_favorite);
+        btn_favorite.setOnClickListener(v -> navigateToFavorite());
+        overridePendingTransition(0, 0); // Убрать анимацию перехода
+
+        ImageButton btn_shop = findViewById(R.id.btn_shop);
+        btn_shop.setOnClickListener(v -> startNewActivity(Shop.class));
+        overridePendingTransition(0, 0); // Убрать анимацию перехода
+
+        ImageButton btn_account = findViewById(R.id.btn_back);
+        btn_account.setOnClickListener(v -> startNewActivity(Category.class));
+        overridePendingTransition(0, 0); // Убрать анимацию перехода
 
     }
 
+    // Метод для запуска новой активности
+    private void startNewActivity(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
+    }
+    private void navigateToFavorite() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Intent intent;
+        if (currentUser != null) {
+            intent = new Intent(this, Favorite.class);
+        } else {
+            intent = new Intent(this, activity_account.class);
+        }
+        startActivity(intent);
+    }
+
+    // Загрузка букетов по выбранной категории из Firestore
     private void loadBouquetsByCategory(String category) {
-        db.collection("ListBouquets")
-                .whereEqualTo("Category", category)
+        db.collection("Categories")
+                .whereEqualTo("Name", category)
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        bouquetsList.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Bouquets bouquet = document.toObject(Bouquets.class);
-                            bouquetsList.add(bouquet);
+                .addOnCompleteListener(categoryTask -> {
+                    if (categoryTask.isSuccessful()) {
+                        for (QueryDocumentSnapshot categoryDoc : categoryTask.getResult()) {
+                            DocumentReference categoryRef = categoryDoc.getReference();
+
+                            db.collection("Bouquets")
+                                    .whereEqualTo("Category", categoryRef)
+                                    .get()
+                                    .addOnCompleteListener(bouquetsTask -> {
+                                        if (bouquetsTask.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document : bouquetsTask.getResult()) {
+                                                Bouquets bouquet = document.toObject(Bouquets.class);
+                                                bouquet.setId(document.getId());
+                                                bouquetsList.add(bouquet);
+                                            }
+                                            setupRecyclerView();
+                                        } else {
+                                            Toast.makeText(View_categories.this, "Ошибка загрузки данных о букетах", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         }
-                        setAdapterData(bouquetsList);
                     } else {
-                        Toast.makeText(View_categories.this, "Error loading bouquets data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(View_categories.this, "Ошибка загрузки категории", Toast.LENGTH_SHORT).show();
                     }
                 });
-
+    }
+    // Настройка RecyclerView с использованием адаптера
+    private void setupRecyclerView() {
+        adapter = new BouquetsAdapter(this, bouquetsList, this);
+        recyclerView.setAdapter(adapter);
+        // Обновление RecyclerView
+        adapter.notifyDataSetChanged();
     }
 
-    // Метод для установки данных в GridLayout адаптер
-    private void setAdapterData(ArrayList<Bouquets> bouquetsList) {
-        GridLayout gridLayout = findViewById(R.id.ll_content); // Получение ссылки на GridLayout с id ll_content
-        gridLayout.removeAllViews(); // Очищаем все предыдущие элементы из GridLayout
+    @Override
+    public void onFavoriteClick(Bouquets bouquet) {
 
-        // Итерация по списку букетов для отображения каждого букета
-        if (bouquetsList != null && !bouquetsList.isEmpty()) {
-            for (Bouquets bouquet : bouquetsList) {
-                // Создание нового представления элемента каталога из макета main_cataloge
-                View itemView = LayoutInflater.from(this).inflate(R.layout.main_cataloge, gridLayout, false);
-
-                // Получение ссылок на компоненты ImageView, TextView для отображения изображения букета, названия и цены
-                ImageView imageView = itemView.findViewById(R.id.imageView);
-                TextView productName = itemView.findViewById(R.id.ProductName);
-                TextView productPrice = itemView.findViewById(R.id.ProductPrice);
-
-                // Загрузка изображения букета с использованием библиотеки Picasso и отображение в ImageView
-                Picasso.get().load(bouquet.getImage()).into(imageView);
-
-                // Установка текста названия букета в соответствующий TextView
-                productName.setText(bouquet.getName());
-
-                // Установка текста цены букета с добавлением символа валюты ₽ в соответствующий TextView
-                productPrice.setText(String.format("%s ₽", bouquet.getCost()));
-
-                // Установка параметров компонентов GridLayout для представления элемента
-                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f); // Устанавливаем ширину столбца
-
-                // Установка параметров представления элемента и добавление его в GridLayout
-                itemView.setLayoutParams(params);
-                gridLayout.addView(itemView);
-            }
-        } else {
-            Toast.makeText(View_categories.this, "Список букетов пуст или не удалось загрузить данные", Toast.LENGTH_SHORT).show();
-        }
     }
 }
-
-

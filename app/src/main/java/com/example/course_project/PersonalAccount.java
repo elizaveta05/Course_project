@@ -2,7 +2,6 @@ package com.example.course_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -12,15 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class PersonalAccount extends AppCompatActivity {
+
     private FirebaseAuth mAuth;
-    private DatabaseReference usersRef;
+    private FirebaseFirestore db;
     private User currentUser; // Объект текущего пользователя
 
     @Override
@@ -28,90 +25,87 @@ public class PersonalAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_account);
 
-        // Получаем экземпляр FirebaseAuth
+        // Инициализация Firebase Auth и Firestore
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
         if (firebaseUser != null) {
             String currentUserId = firebaseUser.getUid();
 
-            usersRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
-
-            usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        String name = dataSnapshot.child("name").getValue(String.class);
-                        String date = dataSnapshot.child("date").getValue(String.class);
-                        String phone = dataSnapshot.child("phone").getValue(String.class);
+            // Получение данных о текущем пользователе из Firestore
+            db.collection("Users").document(currentUserId).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String name = document.getString("name");
+                        String date = document.getString("date");
+                        String phone = document.getString("phone");
 
                         if (name != null && date != null && phone != null) {
                             currentUser = new User(name, date, phone);
 
+                            // Отображение приветствия с именем пользователя
                             TextView welcomeTextView = findViewById(R.id.tv_welcome);
                             welcomeTextView.setText("Добро пожаловать, " + currentUser.getName() + "!");
                         } else {
-                            Toast.makeText(PersonalAccount.this,"Some data is null or missing", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PersonalAccount.this, "Some data is null or missing", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(PersonalAccount.this,"No data found for current user", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PersonalAccount.this, "No data found for current user", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(PersonalAccount.this, "Error reading user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(PersonalAccount.this,"Error reading user data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
             });
-
         }
 
-        // Установка обработчиков нажатия для кнопок
-        Button btn_profile = findViewById(R.id.btn_profile);
-        btn_profile.setOnClickListener(v -> {
-            Intent intent = new Intent(PersonalAccount.this, Profile.class);
-            startActivity(intent);
-        });
+        // Настройка слушателей нажатия для кнопок навигации и действий пользователя
+        setupButtonListeners();
+    }
 
-        Button btn_order = findViewById(R.id.btn_order);
-        btn_order.setOnClickListener(v -> {
-            Intent intent = new Intent(PersonalAccount.this, KlientOrder.class);
-            startActivity(intent);
-        });
+    // Метод для настройки обработчиков нажатия на кнопки
+    private void setupButtonListeners() {
+        ImageButton btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(v -> navigateTo(MainActivity.class));
 
-        Button btn_magazine = findViewById(R.id.btn_magazine);
-        btn_magazine.setOnClickListener(v -> {
-            Intent intent = new Intent(PersonalAccount.this, List_of_stores.class);
-            startActivity(intent);
-        });
-        ImageButton btn_back=findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(v->{
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        });
         ImageButton btn_main = findViewById(R.id.btn_main);
-        btn_main.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        });
-        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
-        btn_cataloge.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Category.class);
-            startActivity(intent);
-        });
+        btn_main.setOnClickListener(v -> navigateTo(MainActivity.class));
 
-        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
-        btn_favorites.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Favorite.class);
-            startActivity(intent);
-        });
+        ImageButton btn_catalog = findViewById(R.id.btn_cataloge);
+        btn_catalog.setOnClickListener(v -> navigateTo(Category.class));
+
+        ImageButton btn_favorite = findViewById(R.id.btn_favorite);
+        btn_favorite.setOnClickListener(v -> navigateToFavorite());
 
         ImageButton btn_shop = findViewById(R.id.btn_shop);
-        btn_shop.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Shop.class);
-            startActivity(intent);
-        });
+        btn_shop.setOnClickListener(v -> navigateTo(Shop.class));
 
+        Button btn_profile = findViewById(R.id.btn_profile);
+        btn_profile.setOnClickListener(v -> navigateTo(Profile.class));
+
+        Button btn_order = findViewById(R.id.btn_order);
+        btn_order.setOnClickListener(v -> navigateTo(KlientOrder.class));
+
+        Button btn_magazine = findViewById(R.id.btn_magazine);
+        btn_magazine.setOnClickListener(v -> navigateTo(List_of_stores.class));
+    }
+    private void navigateToFavorite() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Intent intent;
+        if (currentUser != null) {
+            intent = new Intent(this, Favorite.class);
+        } else {
+
+            intent = new Intent(this, activity_account.class);
+        }
+        startActivity(intent);
+    }
+    // Метод для навигации на другой экран
+    private void navigateTo(Class<?> destinationClass) {
+        Intent intent = new Intent(this, destinationClass);
+        startActivity(intent);
+        overridePendingTransition(0, 0); // Убрать анимацию перехода
     }
 }

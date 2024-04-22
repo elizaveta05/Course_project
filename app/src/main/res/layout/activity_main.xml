@@ -298,13 +298,12 @@
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
-            <GridLayout
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ll_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:orientation="horizontal"/>
-
+                android:clickable="true"
+                android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
 

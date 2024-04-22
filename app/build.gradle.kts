@@ -83,4 +83,6 @@ dependencies {
 
     // Зависимость для Android тестов с использованием Espresso
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    implementation("com.google.code.gson:gson:2.10.1")
 }

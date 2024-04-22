@@ -13,14 +13,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class Registration extends AppCompatActivity {
@@ -42,33 +47,9 @@ public class Registration extends AppCompatActivity {
         tt_phone = findViewById(R.id.tt_phone);
         cb_assent = findViewById(R.id.cb_assent);
 
-        ImageButton btn_back=findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(v->{
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        });
-        ImageButton btn_main = findViewById(R.id.btn_main);
-        btn_main.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        });
-        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
-        btn_cataloge.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Category.class);
-            startActivity(intent);
-        });
+        // Настройка обработчиков клика для кнопок
+        setupClickListeners();
 
-        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
-        btn_favorites.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Favorite.class);
-            startActivity(intent);
-        });
-
-        ImageButton btn_shop = findViewById(R.id.btn_shop);
-        btn_shop.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Shop.class);
-            startActivity(intent);
-        });
         Button btnAdd = findViewById(R.id.btn_add);
         Button btnRegister = findViewById(R.id.btn_regis);
         EditText editTextCode = findViewById(R.id.tt_code);
@@ -100,12 +81,23 @@ public class Registration extends AppCompatActivity {
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                signInWithPhoneAuthCredential(phoneAuthCredential);
             }
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-                Toast.makeText(Registration.this, "Ошибка верификации номера телефона", Toast.LENGTH_SHORT).show();
+                // Обработка ошибок верификации номера телефона
+                Toast.makeText(Registration.this, "Ошибка верификации номера телефона: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                    // Некорректный формат номера телефона
+                    Toast.makeText(Registration.this, "Некорректный формат номера телефона", Toast.LENGTH_SHORT).show();
+                } else if (e instanceof FirebaseTooManyRequestsException) {
+                    // Превышение лимита запросов на верификацию
+                    Toast.makeText(Registration.this, "Превышен лимит запросов на верификацию. Попробуйте позже", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Другие типы ошибок
+                    Toast.makeText(Registration.this, "Произошла ошибка верификации номера телефона", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -131,23 +123,69 @@ public class Registration extends AppCompatActivity {
             }
         };
     }
+    // Настройка обработчиков клика для кнопок
+    private void setupClickListeners() {
+        // Устанавливаем обработчики кликов для кнопок навигации
+        ImageButton btn_main = findViewById(R.id.btn_main);
+        btn_main.setOnClickListener(v -> startNewActivity(MainActivity.class));
 
+        ImageButton btn_favorite = findViewById(R.id.btn_favorite);
+        btn_favorite.setOnClickListener(v -> navigateToFavorite());
+
+        ImageButton btn_shop = findViewById(R.id.btn_shop);
+        btn_shop.setOnClickListener(v -> startNewActivity(Shop.class));
+
+        ImageButton btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(v -> startNewActivity(activity_account.class));
+
+    }
+
+    // Метод для запуска новой активности
+    private void startNewActivity(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
+        overridePendingTransition(0, 0); // Убрать анимацию перехода
+    }
+
+    private void navigateToFavorite() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Intent intent;
+        if (currentUser != null) {
+            intent = new Intent(this, Favorite.class);
+        } else {
+
+            intent = new Intent(this, activity_account.class);
+        }
+        startActivity(intent);
+    }
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
-                            User newUser = new User(name, date, phone);
-                            databaseRef.setValue(newUser)
-                                    .addOnSuccessListener(aVoid -> {
-                                        Toast.makeText(Registration.this, "Данные пользователя успешно записаны", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Registration.this, MainActivity.class);
-                                        startActivity(intent);
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            Map<String, Object> userMap = new HashMap<>();
+                            userMap.put("name", name);
+                            userMap.put("date", date);
+                            userMap.put("phone", phone);
+
+                            db.collection("Users").document(user.getUid())
+                                    .set(userMap)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(Registration.this, "Данные пользователя успешно записаны", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(Registration.this, MainActivity.class);
+                                            startActivity(intent);
+                                            overridePendingTransition(0, 0); // Убрать анимацию перехода
+                                        }
                                     })
-                                    .addOnFailureListener(e -> {
-                                        Toast.makeText(Registration.this, "Ошибка записи данных пользователя: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(Registration.this, "Ошибка записи данных пользователя: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
                                     });
                         } else {
                             Toast.makeText(Registration.this, "Не удалось получить информацию о текущем пользователе", Toast.LENGTH_SHORT).show();

@@ -20,6 +20,12 @@
         android:theme="@style/Theme.Course_project"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".SearchResult"
+            android:exported="false" />
+        <activity
+            android:name=".Bouquets_cards"
+            android:exported="true" />
+        <activity
             android:name=".View_categories"
             android:exported="true" />
         <activity
@@ -27,6 +33,9 @@
             android:exported="true" />
         <activity
             android:name=".ShoppingCart"
+            android:exported="true" />
+        <activity
+            android:name=".Shop"
             android:exported="true" />
         <activity
             android:name=".Favorite"

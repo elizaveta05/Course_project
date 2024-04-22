@@ -17,42 +17,16 @@ import java.util.ArrayList;
 
 public class List_of_stores extends AppCompatActivity {
 
-    private StoreAdapter storeAdapter;
+    private StoreAdapter storeAdapter; // Адаптер для списка магазинов
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_stores);
-        // Настройка обработчиков клика для кнопки "Избранное"
-        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
-        btn_favorites.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Favorite.class);
-            startActivity(intent);
-        });
-        // Настройка обработчиков клика для кнопки "Корзина"
-        ImageButton btn_shop = findViewById(R.id.btn_shop);
-        btn_shop.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ShoppingCart.class);
-            startActivity(intent);
-        });
-        // Настройка обработчиков клика для кнопки "Каталог"
-        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
-        btn_cataloge.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Category.class);
-            startActivity(intent);
-        });
-        // Настройка обработчиков клика для кнопки "Главный экран"
-        ImageButton btn_main = findViewById(R.id.btn_main);
-        btn_main.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        });
-        // Настройка обработчиков клика для кнопки "Назад"
-        ImageButton btn_back = findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        });
+
+        // Настройка обработчиков клика для различных кнопок навигации
+        setNavigationButtonsClickListeners();
+
         // Инициализация RecyclerView
         RecyclerView recyclerView = findViewById(R.id.store_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -67,12 +41,13 @@ public class List_of_stores extends AppCompatActivity {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     ArrayList<Store> storeList = new ArrayList<>();
 
+                    // Обход результатов запроса и добавление магазинов в список
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                         Store store = document.toObject(Store.class);
                         storeList.add(store);
                     }
 
-                    storeAdapter.setStoreList(storeList);
+                    storeAdapter.setStoreList(storeList); // Установка списка магазинов в адаптер
                 })
                 .addOnFailureListener(e -> {
                     Log.e("Error", "Failed to get data from database", e);
@@ -80,4 +55,22 @@ public class List_of_stores extends AppCompatActivity {
                 });
     }
 
+    // Установка обработчиков кликов для кнопок навигации
+    private void setNavigationButtonsClickListeners() {
+        setNavigationButtonClickListener(R.id.btn_favorites, Favorite.class);
+        setNavigationButtonClickListener(R.id.btn_shop, ShoppingCart.class);
+        setNavigationButtonClickListener(R.id.btn_cataloge, Category.class);
+        setNavigationButtonClickListener(R.id.btn_main, MainActivity.class);
+        setNavigationButtonClickListener(R.id.btn_back, MainActivity.class);
+    }
+
+    // Установка обработчика клика на кнопку навигации
+    private void setNavigationButtonClickListener(int buttonId, Class<?> cls) {
+        ImageButton button = findViewById(buttonId);
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(this, cls);
+            startActivity(intent);
+            overridePendingTransition(0, 0); // Убрать анимацию перехода
+        });
+    }
 }

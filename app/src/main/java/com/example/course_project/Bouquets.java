@@ -1,8 +1,12 @@
 package com.example.course_project;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.PropertyName;
 
 public class Bouquets {
+    @PropertyName("Document ID")
+    private String id;
+
     @PropertyName("Name")
     private String name;
 
@@ -16,22 +20,43 @@ public class Bouquets {
     private String cost;
 
     @PropertyName("Category")
-    private String category;
+    private DocumentReference category;
 
     @PropertyName("Composition")
-    private String composition;
+    private DocumentReference composition;
+
+    private boolean isFavorite;
+    private String categoryName;
 
     public Bouquets() {
-        // Пустой конструктор (необходим для Firebase)
+        // Empty constructor (required for Firebase)
     }
 
-    public Bouquets(String name, String description, String image, String cost, String category, String composition) {
+    public Bouquets(String id, String name, String description, String image, String cost, DocumentReference category, DocumentReference composition) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
         this.cost = cost;
         this.category = category;
         this.composition = composition;
+    }
+
+
+    public boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -66,19 +91,26 @@ public class Bouquets {
         this.cost = cost;
     }
 
-    public String getCategory() {
+    public DocumentReference getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(DocumentReference category) {
         this.category = category;
     }
 
-    public String getComposition() {
+    public DocumentReference getComposition() {
         return composition;
     }
 
-    public void setComposition(String composition) {
+    public void setComposition(DocumentReference composition) {
         this.composition = composition;
+    }
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

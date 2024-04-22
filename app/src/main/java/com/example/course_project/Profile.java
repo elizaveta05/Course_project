@@ -2,7 +2,6 @@ package com.example.course_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,18 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Profile extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private DatabaseReference usersRef;
     private FirebaseUser currentUser;
-
+    private FirebaseFirestore db;
+    private DocumentReference userRef;
     private EditText editTextName;
     private EditText editTextDate;
     private EditText editTextPhone;
@@ -34,127 +31,152 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        ImageButton btn_back=findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(v->{
-            Intent intent = new Intent(this, PersonalAccount.class);
-            startActivity(intent);
-        });
-        ImageButton btn_main = findViewById(R.id.btn_main);
-        btn_main.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        });
-        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
-        btn_cataloge.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Category.class);
-            startActivity(intent);
-        });
-
-        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
-        btn_favorites.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Favorite.class);
-            startActivity(intent);
-        });
-
-        ImageButton btn_shop = findViewById(R.id.btn_shop);
-        btn_shop.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Shop.class);
-            startActivity(intent);
-        });
-
-
-        ImageButton btn_save= findViewById(R.id.btn_save);
-        btn_save.setVisibility(View.GONE); // Скрываем кнопку "Сохранения изменений"
-        ImageButton btn_edit= findViewById(R.id.btn_edit);
-
+        // Инициализация Firestore и Firebase Auth
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
             String currentUserId = currentUser.getUid();
-            usersRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
+            userRef = db.collection("Users").document(currentUserId);
 
-            // Инициализация полей EditText
+            // Привязка EditText полей профиля
             editTextName = findViewById(R.id.editTextName);
             editTextDate = findViewById(R.id.editTextDate);
             editTextPhone = findViewById(R.id.editTextPhone);
-            // Закрытие EditText
+            // Запрет на редактирование полей
             editTextName.setEnabled(false);
             editTextDate.setEnabled(false);
             editTextPhone.setEnabled(false);
 
-            usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        String name = dataSnapshot.child("name").getValue(String.class);
-                        String date = dataSnapshot.child("date").getValue(String.class);
-                        String phone = dataSnapshot.child("phone").getValue(String.class);
+            // Получение данных о текущем пользователе из Firestore
+            userRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String name = document.getString("name");
+                        String date = document.getString("date");
+                        String phone = document.getString("phone");
 
-                        // Заполнение полей профиля данными из Firebase
+                        // Заполнение EditText данными из Firestore
                         editTextName.setText(name);
                         editTextDate.setText(date);
                         editTextPhone.setText(phone);
                     }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Обработка ошибок при чтении данных из базы данных
+                } else {
+                    Toast.makeText(Profile.this, "Ошибка при получении данных: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-            btn_edit.setOnClickListener(v->{
-                // Открытие EditText для редактирования
-                editTextName.setEnabled(true);
-                editTextDate.setEnabled(true);
-                btn_save.setVisibility(View.VISIBLE); // Открываем кнопку "Сохранения изменений"
-            });
-            btn_save.setOnClickListener(v -> {
-                String name = editTextName.getText().toString().trim();
-                String date = editTextDate.getText().toString().trim();
 
-                // Проверка данных
-                if (name.isEmpty() || name.length() < 3 || name.length() > 50 ||
-                        date.isEmpty() || !date.matches("^\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d$")) {
-                    // Проверки данных не прошли, не сохраняем и не обновляем номер телефона
-                    Toast.makeText(Profile.this, "Ошибка валидации данных", Toast.LENGTH_SHORT).show();
-                    return;
-                }else {
-                    // Сохранение данных в Firebase Realtime Database
-                    usersRef.child("name").setValue(name);
-                    usersRef.child("date").setValue(date);
-                    Toast.makeText(Profile.this, "Данные успешно обновлены", Toast.LENGTH_SHORT).show();
-                }
-
-                // Закрытие текстовых полей и скрытие кнопки сохранения
-                editTextName.setEnabled(false);
-                editTextDate.setEnabled(false);
-                btn_edit.setVisibility(View.VISIBLE);
-                btn_save.setVisibility(View.GONE);
-
-            });
-
-            Button logoutButton = findViewById(R.id.btn_exit);
-            logoutButton.setOnClickListener(v -> {
-                // Выход из аккаунта
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            });
-
-            Button deleteAccountButton = findViewById(R.id.btn_delete);
-            deleteAccountButton.setOnClickListener(v -> {
-                // Удаление аккаунта из Firebase
-                usersRef.removeValue();
-                currentUser.delete()
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(Profile.this, "Профиль удален!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            });
+            // Настройка кнопок редактирования, сохранения, выхода и удаления аккаунта
+            setupButtonListeners();
+            // Настройка обработчиков клика для кнопок
+            setupClickListeners();
         }
+    }
+
+    // Настройка обработчиков клика для кнопок
+    private void setupButtonListeners() {
+        ImageButton btn_edit = findViewById(R.id.btn_edit);
+        ImageButton btn_save = findViewById(R.id.btn_save);
+        btn_save.setVisibility(View.GONE);
+        btn_edit.setOnClickListener(v -> enableEditProfileFields());
+
+        btn_save.setOnClickListener(v -> saveProfileChanges());
+
+        Button logoutButton = findViewById(R.id.btn_exit);
+        logoutButton.setOnClickListener(v -> logoutUser());
+
+        Button deleteAccountButton = findViewById(R.id.btn_delete);
+        deleteAccountButton.setOnClickListener(v -> deleteAccount());
+    }
+    // Настройка обработчиков клика для кнопок
+    private void setupClickListeners() {
+        // Устанавливаем обработчики кликов для кнопок навигации
+        ImageButton btn_main = findViewById(R.id.btn_main);
+        btn_main.setOnClickListener(v -> startNewActivity(MainActivity.class));
+
+        ImageButton btn_favorite = findViewById(R.id.btn_favorite);
+        btn_favorite.setOnClickListener(v -> navigateToFavorite());
+
+        ImageButton btn_shop = findViewById(R.id.btn_shop);
+        btn_shop.setOnClickListener(v -> startNewActivity(Shop.class));
+
+        ImageButton btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(v -> startNewActivity(PersonalAccount.class));
+
+    }
+
+    // Метод для запуска новой активности
+    private void startNewActivity(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
+        overridePendingTransition(0, 0); // Убрать анимацию перехода
+    }
+
+    private void navigateToFavorite() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Intent intent;
+        if (currentUser != null) {
+            intent = new Intent(this, Favorite.class);
+        } else {
+
+            intent = new Intent(this, activity_account.class);
+        }
+        startActivity(intent);
+    }
+    // Редактирование полей профиля
+    private void enableEditProfileFields() {
+        editTextName.setEnabled(true);
+        editTextDate.setEnabled(true);
+        findViewById(R.id.btn_save).setVisibility(View.VISIBLE);
+    }
+
+    // Сохранение изменений профиля
+    private void saveProfileChanges() {
+        String name = editTextName.getText().toString().trim();
+        String date = editTextDate.getText().toString().trim();
+
+        // Проверка и сохранение данных
+        if (isValidProfileData(name, date)) {
+            userRef.update("name", name, "date", date)
+                    .addOnSuccessListener(aVoid -> Toast.makeText(Profile.this, "Данные успешно обновлены", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(Profile.this, "Ошибка при обновлении данных: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        }
+
+        editTextName.setEnabled(false);
+        editTextDate.setEnabled(false);
+        findViewById(R.id.btn_edit).setVisibility(View.VISIBLE);
+        findViewById(R.id.btn_save).setVisibility(View.GONE);
+    }
+
+    // Валидация данных профиля
+    private boolean isValidProfileData(String name, String date) {
+        if (name.isEmpty() || name.length() < 3 || name.length() > 50 || date.isEmpty() || !date.matches("\\d{2}\\.\\d{2}\\.\\d{4}")) {
+            Toast.makeText(Profile.this, "Ошибка валидации данных", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    // Выход из аккаунта
+    private void logoutUser() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(Profile.this, MainActivity.class));
+        overridePendingTransition(0, 0);
+    }
+
+    // Удаление аккаунта пользователя
+    private void deleteAccount() {
+        userRef.delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                currentUser.delete().addOnCompleteListener(deleteTask -> {
+                    if (deleteTask.isSuccessful()) {
+                        Toast.makeText(Profile.this, "Профиль удален", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Profile.this, MainActivity.class));
+                    }
+                });
+            }
+        });
     }
 }
