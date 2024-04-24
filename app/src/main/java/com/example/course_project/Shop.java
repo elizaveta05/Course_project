@@ -3,6 +3,7 @@ package com.example.course_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +51,26 @@ public class Shop extends AppCompatActivity implements AdapterOrder.OrderListene
       }
     // Настройка обработчиков клика для кнопок
     private void setupClickListeners() {
+        // Устанавливаем обработчик клика для кнопки "Оформить заказ"
+        Button btn_order = findViewById(R.id.btn_order);
+        btn_order.setOnClickListener(v -> {
+            if (currentUser != null) {
+                // Проверяем наличие элементов в корзине перед переходом
+                if (adapter.getItemCount() > 0) {
+                    Intent intent = new Intent(this, ShoppingCart.class);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0); // Убрать анимацию перехода
+                } else {
+                    Toast.makeText(this, "Ваша корзина пуста. Добавьте товары перед оформлением заказа", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Intent intent = new Intent(this, activity_account.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+                Toast.makeText(this, "Войдите в аккаунт для оформления заказа", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // Устанавливаем обработчики кликов для кнопок навигации
         ImageButton btn_main = findViewById(R.id.btn_main);
         btn_main.setOnClickListener(v -> startNewActivity(MainActivity.class));

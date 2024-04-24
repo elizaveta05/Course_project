@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Course_project"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".ShoppingCart2"
+            android:exported="false" />
+        <activity
             android:name=".SearchResult"
             android:exported="false" />
         <activity

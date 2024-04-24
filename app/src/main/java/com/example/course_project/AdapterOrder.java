@@ -38,6 +38,9 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
         this.listener=listener;
 
     }
+
+
+
     public void setfetchBouquetQuantitiesByUser(ArrayList<Bouquets> bouquets) {
         bouquetsList = bouquets;
     }

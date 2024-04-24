@@ -106,7 +106,7 @@
         android:id="@+id/view9"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#CBFFFFFF"
+        android:background="#E8FFFCFC"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

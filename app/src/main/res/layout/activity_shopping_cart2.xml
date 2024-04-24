@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="#FEFEFE"
-    tools:context=".ShoppingCart">
+    android:layout_height="match_parent"
+    tools:context=".ShoppingCart2">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -155,11 +155,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:showText="false"
                 android:text="Самовывоз"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:thumbTint="@color/yellow"
-                android:trackTint="@color/yellow" />
+                android:trackTint="@color/yellow"
+                tools:checked="true" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -203,67 +205,14 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/et_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:hint="Адрес"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textColorHint="@color/yellow"
-                android:textSize="14sp" />
-
-            <LinearLayout
+            <Spinner
+                android:id="@+id/sp_magazine"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/et_door"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="60dp"
-                    android:ems="10"
-                    android:hint="Квартира"
-                    android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/yellow"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/et_entrance"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="60dp"
-                    android:ems="10"
-                    android:hint="Подъезд"
-                    android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/yellow"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/et_floor"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="12dp"
-                    android:ems="10"
-                    android:hint="Этаж"
-                    android:inputType="text"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/yellow"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"/>
 
             <TextView
                 android:id="@+id/textView18"
@@ -342,5 +291,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
