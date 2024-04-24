@@ -2,6 +2,8 @@ package com.example.course_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -20,7 +23,7 @@ public class Bouquets_cards extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bouquets_cards);
-        ImageButton btn_back = findViewById(R.id.btn_back);
+        ImageButton btn_back = findViewById(R.id.btn_account);
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity.class));
             overridePendingTransition(0, 0); // Убрать анимацию перехода
@@ -53,7 +56,35 @@ public class Bouquets_cards extends AppCompatActivity {
         // Получаем информацию о букете из Intent
         bouquetId = getIntent().getStringExtra("bouquet_id");
         getBouquetById(bouquetId);
+
+        Button btn_checkout = findViewById(R.id.btn_checkout);
+        btn_checkout.setOnClickListener(v -> {
+            addToCart(bouquetId);
+        });
     }
+
+        private void addToCart(String bouquetId) {
+            // Получаем идентификатор текущего пользователя
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            if (userId != null) {
+                // Создаем объект заказа
+                OrderCart order = new OrderCart(userId, bouquetId);
+
+                // Добавляем заказ в коллекцию ListOrder в Firestore
+                db.collection("ListOrder")
+                        .add(order)
+                        .addOnSuccessListener(documentReference -> {
+                            Toast.makeText(this, "Букет успешно добавлен в корзину", Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e("ListOrder", "Error adding bouquet to ListOrder", e);
+                            Toast.makeText(this, "Ошибка при добавлении букета в корзину", Toast.LENGTH_SHORT).show();
+                        });
+            } else {
+                Toast.makeText(this, "Для добавления в корзину необходимо войти в аккаунт", Toast.LENGTH_SHORT).show();
+            }
+        }
 
     private void getBouquetById(String bouquetId) {
         db.collection("Bouquets")

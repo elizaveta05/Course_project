@@ -39,7 +39,7 @@ public class activity_account extends AppCompatActivity {
         btn_main.setOnClickListener(v -> startNewActivity(MainActivity.class));
 
         // Настройка обработчиков клика для кнопки "Главный экран"
-        ImageButton btn_back = findViewById(R.id.btn_back);
+        ImageButton btn_back = findViewById(R.id.btn_account);
         btn_back.setOnClickListener(v -> startNewActivity(MainActivity.class));
 
         // Настройка обработчиков клика для кнопки "Избранное"

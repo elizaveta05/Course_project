@@ -23,6 +23,8 @@ public class View_categories extends AppCompatActivity implements BouquetsAdapte
     private ArrayList<Bouquets> bouquetsList = new ArrayList<>();
     private BouquetsAdapter adapter; // Объявление объекта адаптера
     private RecyclerView recyclerView;
+    private  FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +54,40 @@ public class View_categories extends AppCompatActivity implements BouquetsAdapte
         btn_main.setOnClickListener(v -> startNewActivity(MainActivity.class));
         overridePendingTransition(0, 0); // Убрать анимацию перехода
 
-        ImageButton btn_favorite = findViewById(R.id.btn_favorite);
-        btn_favorite.setOnClickListener(v -> navigateToFavorite());
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
-
         ImageButton btn_shop = findViewById(R.id.btn_shop);
         btn_shop.setOnClickListener(v -> startNewActivity(Shop.class));
         overridePendingTransition(0, 0); // Убрать анимацию перехода
 
-        ImageButton btn_account = findViewById(R.id.btn_back);
-        btn_account.setOnClickListener(v -> startNewActivity(Category.class));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
+        // Настройка обработчика клика для кнопки "Аккаунт"
+        ImageButton btn_account = findViewById(R.id.btn_account);
+        btn_account.setOnClickListener(v -> {
+            if (currentUser != null) {
+                Intent intent = new Intent(this, PersonalAccount.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            } else {
+                Intent intent = new Intent(this, activity_account.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
+
+        // Настройка обработчика клика для кнопки "Избранное"
+        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
+        btn_favorites.setOnClickListener(v -> {
+            if (currentUser != null) {
+                Intent intent = new Intent(this, Favorite.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+
+            } else {
+                Intent intent = new Intent(this, activity_account.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+                Toast.makeText(this, "Войдите в аккаунт для добавления в избранное", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 

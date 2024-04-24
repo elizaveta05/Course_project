@@ -61,7 +61,7 @@ public class List_of_stores extends AppCompatActivity {
         setNavigationButtonClickListener(R.id.btn_shop, ShoppingCart.class);
         setNavigationButtonClickListener(R.id.btn_cataloge, Category.class);
         setNavigationButtonClickListener(R.id.btn_main, MainActivity.class);
-        setNavigationButtonClickListener(R.id.btn_back, MainActivity.class);
+        setNavigationButtonClickListener(R.id.btn_account, MainActivity.class);
     }
 
     // Установка обработчика клика на кнопку навигации

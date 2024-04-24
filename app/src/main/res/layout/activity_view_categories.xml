@@ -74,7 +74,7 @@
         app:srcCompat="@mipmap/logo" />
 
     <ImageButton
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_account"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:backgroundTint="#FFFFFF"
@@ -95,6 +95,8 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

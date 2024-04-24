@@ -135,7 +135,7 @@ public class Registration extends AppCompatActivity {
         ImageButton btn_shop = findViewById(R.id.btn_shop);
         btn_shop.setOnClickListener(v -> startNewActivity(Shop.class));
 
-        ImageButton btn_back = findViewById(R.id.btn_back);
+        ImageButton btn_back = findViewById(R.id.btn_account);
         btn_back.setOnClickListener(v -> startNewActivity(activity_account.class));
 
     }

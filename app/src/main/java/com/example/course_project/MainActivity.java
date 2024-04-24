@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements BouquetsAdapter.F
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Настройка обработчика клика для кнопки "Аккаунт"
-        ImageButton btn_account = findViewById(R.id.btn_back);
+        ImageButton btn_account = findViewById(R.id.btn_account);
         btn_account.setOnClickListener(v -> {
             if (currentUser != null) {
                 Intent intent = new Intent(this, PersonalAccount.class);
@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements BouquetsAdapter.F
         });
 
         // Настройка обработчика клика для кнопки "Каталог"
-        ImageButton btn_catalog = findViewById(R.id.btn_cataloge);
-        btn_catalog.setOnClickListener(v -> {
+        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
+        btn_cataloge.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Category.class);
             startActivity(intent);
             overridePendingTransition(0, 0); // Убрать анимацию перехода
@@ -138,38 +138,28 @@ public class MainActivity extends AppCompatActivity implements BouquetsAdapter.F
         // Настройка кликов и обработчиков для различных категорий
         LinearLayout ll_ready_bouquets = findViewById(R.id.ll_ready_bouquets);
         ll_ready_bouquets.setOnClickListener(v -> loadBouquetsByCategory("Готовые букеты"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
         ImageButton btn_rose = findViewById(R.id.btn_rose);
         btn_rose.setOnClickListener(v -> loadBouquetsByCategory("Готовые букеты"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
 
         LinearLayout ll_basket = findViewById(R.id.ll_basket);
         ll_basket.setOnClickListener(v -> loadBouquetsByCategory("Букеты в корзине"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
         ImageButton btn_basket = findViewById(R.id.btn_basket);
         btn_basket.setOnClickListener(v -> loadBouquetsByCategory("Букеты в корзине"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
 
         LinearLayout ll_box = findViewById(R.id.ll_box);
         ll_box.setOnClickListener(v -> loadBouquetsByCategory("Букеты в коробке"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
         ImageButton btn_box = findViewById(R.id.btn_box);
         btn_box.setOnClickListener(v -> loadBouquetsByCategory("Букеты в коробке"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
 
         LinearLayout ll_child = findViewById(R.id.ll_child);
         ll_child.setOnClickListener(v -> loadBouquetsByCategory("Детские букеты"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
         ImageButton btn_child = findViewById(R.id.btn_child);
         btn_child.setOnClickListener(v -> loadBouquetsByCategory("Детские букеты"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
 
         LinearLayout ll_sale = findViewById(R.id.ll_sale);
         ll_sale.setOnClickListener(v -> loadBouquetsByCategory("Акция"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
         ImageButton btn_sale = findViewById(R.id.btn_sale);
         btn_sale.setOnClickListener(v -> loadBouquetsByCategory("Акция"));
-        overridePendingTransition(0, 0); // Убрать анимацию перехода
     }
 
     // Настройка RecyclerView

@@ -20,6 +20,7 @@ public class PersonalAccount extends AppCompatActivity {
     private FirebaseFirestore db;
     private User currentUser; // Объект текущего пользователя
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class PersonalAccount extends AppCompatActivity {
 
     // Метод для настройки обработчиков нажатия на кнопки
     private void setupButtonListeners() {
-        ImageButton btn_back = findViewById(R.id.btn_back);
+        ImageButton btn_back = findViewById(R.id.btn_account);
         btn_back.setOnClickListener(v -> navigateTo(MainActivity.class));
 
         ImageButton btn_main = findViewById(R.id.btn_main);
@@ -76,8 +77,21 @@ public class PersonalAccount extends AppCompatActivity {
         ImageButton btn_catalog = findViewById(R.id.btn_cataloge);
         btn_catalog.setOnClickListener(v -> navigateTo(Category.class));
 
-        ImageButton btn_favorite = findViewById(R.id.btn_favorite);
-        btn_favorite.setOnClickListener(v -> navigateToFavorite());
+        // Настройка обработчика клика для кнопки "Избранное"
+        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
+        btn_favorites.setOnClickListener(v -> {
+            if (currentUser != null) {
+                Intent intent = new Intent(this, Favorite.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+
+            } else {
+                Intent intent = new Intent(this, activity_account.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+                Toast.makeText(this, "Войдите в аккаунт для добавления в избранное", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ImageButton btn_shop = findViewById(R.id.btn_shop);
         btn_shop.setOnClickListener(v -> navigateTo(Shop.class));
@@ -90,17 +104,6 @@ public class PersonalAccount extends AppCompatActivity {
 
         Button btn_magazine = findViewById(R.id.btn_magazine);
         btn_magazine.setOnClickListener(v -> navigateTo(List_of_stores.class));
-    }
-    private void navigateToFavorite() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intent;
-        if (currentUser != null) {
-            intent = new Intent(this, Favorite.class);
-        } else {
-
-            intent = new Intent(this, activity_account.class);
-        }
-        startActivity(intent);
     }
     // Метод для навигации на другой экран
     private void navigateTo(Class<?> destinationClass) {

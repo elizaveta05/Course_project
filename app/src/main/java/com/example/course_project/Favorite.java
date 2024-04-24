@@ -36,15 +36,35 @@ public class Favorite extends AppCompatActivity implements BouquetsAdapter.Favor
 
     // Настройка обработчиков клика для кнопок
     private void setupClickListeners() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         // Устанавливаем обработчики кликов для кнопок навигации
         ImageButton btn_main = findViewById(R.id.btn_main);
         btn_main.setOnClickListener(v -> startNewActivity(MainActivity.class));
 
         ImageButton btn_shop = findViewById(R.id.btn_shop);
         btn_shop.setOnClickListener(v -> startNewActivity(Shop.class));
+        // Настройка обработчика клика для кнопки "Каталог"
+        ImageButton btn_cataloge = findViewById(R.id.btn_cataloge);
+        btn_cataloge.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Category.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0); // Убрать анимацию перехода
+        });
 
-        ImageButton btn_account = findViewById(R.id.btn_back);
-        btn_account.setOnClickListener(v -> navigateToAccount());
+        // Настройка обработчика клика для кнопки "Аккаунт"
+        ImageButton btn_account = findViewById(R.id.btn_account);
+        btn_account.setOnClickListener(v -> {
+            if (currentUser != null) {
+                Intent intent = new Intent(this, PersonalAccount.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            } else {
+                Intent intent = new Intent(this, activity_account.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
 
     }
 
@@ -53,18 +73,6 @@ public class Favorite extends AppCompatActivity implements BouquetsAdapter.Favor
         Intent intent = new Intent(this, cls);
         startActivity(intent);
         overridePendingTransition(0, 0); // Убрать анимацию перехода
-    }
-
-    // Навигация на экран учетной записи в зависимости от пользователя
-    private void navigateToAccount() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intent;
-        if (currentUser != null) {
-            intent = new Intent(this, PersonalAccount.class);
-        } else {
-            intent = new Intent(this, activity_account.class);
-        }
-        startActivity(intent);
     }
 
     // Настройка RecyclerView

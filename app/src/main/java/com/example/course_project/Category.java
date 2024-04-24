@@ -2,8 +2,10 @@ package com.example.course_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +21,8 @@ public class Category extends AppCompatActivity {
 
         // Настройка обработчиков клика для кнопок
         setupClickListeners();
-
+        // Устанавливаем обработчики для кнопок категорий букетов
+        setUpCategoryButtons();
         // Настройка SearchView
         searchView = findViewById(R.id.searchView);
 
@@ -44,21 +47,44 @@ public class Category extends AppCompatActivity {
 
     // Настройка обработчиков клика для кнопок
     private void setupClickListeners() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         // Устанавливаем обработчики кликов для кнопок навигации
         ImageButton btn_main = findViewById(R.id.btn_main);
         btn_main.setOnClickListener(v -> startNewActivity(MainActivity.class));
 
-        ImageButton btn_favorite = findViewById(R.id.btn_favorite);
-        btn_favorite.setOnClickListener(v -> navigateToFavorite());
+        // Настройка обработчика клика для кнопки "Избранное"
+        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
+        btn_favorites.setOnClickListener(v -> {
+            if (currentUser != null) {
+                Intent intent = new Intent(this, Favorite.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+
+            } else {
+                Intent intent = new Intent(this, activity_account.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+                Toast.makeText(this, "Войдите в аккаунт для добавления в избранное", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ImageButton btn_shop = findViewById(R.id.btn_shop);
         btn_shop.setOnClickListener(v -> startNewActivity(Shop.class));
 
-        ImageButton btn_account = findViewById(R.id.btn_back);
-        btn_account.setOnClickListener(v -> navigateToAccount());
+        // Настройка обработчика клика для кнопки "Аккаунт"
+        ImageButton btn_account = findViewById(R.id.btn_account);
+        btn_account.setOnClickListener(v -> {
+            if (currentUser != null) {
+                Intent intent = new Intent(this, PersonalAccount.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            } else {
+                Intent intent = new Intent(this, activity_account.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
 
-        // Устанавливаем обработчики для кнопок категорий букетов
-        setUpCategoryButtons();
     }
 
     // Метод для запуска новой активности
@@ -68,28 +94,6 @@ public class Category extends AppCompatActivity {
         overridePendingTransition(0, 0); // Убрать анимацию перехода
     }
 
-    // Навигация на экран учетной записи в зависимости от пользователя
-    private void navigateToAccount() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intent;
-        if (currentUser != null) {
-            intent = new Intent(this, PersonalAccount.class);
-        } else {
-            intent = new Intent(this, activity_account.class);
-        }
-        startActivity(intent);
-    }
-    private void navigateToFavorite() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intent;
-        if (currentUser != null) {
-            intent = new Intent(this, Favorite.class);
-        } else {
-
-            intent = new Intent(this, activity_account.class);
-        }
-        startActivity(intent);
-    }
     // Настройка обработчиков для кнопок категорий букетов
     private void setUpCategoryButtons() {
         loadBouquetsByCategory("Готовые букеты", R.id.btn_ready_bouquets);
@@ -105,11 +109,15 @@ public class Category extends AppCompatActivity {
     // Загрузка букетов по выбранной категории и переход на экран категорий
     private void loadBouquetsByCategory(String category, int buttonId) {
         ImageButton button = findViewById(buttonId);
-        button.setOnClickListener(v -> {
-            Intent intent = new Intent(this, View_categories.class);
-            intent.putExtra("categoryName", category);
-            startActivity(intent);
-            overridePendingTransition(0, 0); // Убрать анимацию перехода
-        });
+        if (button != null) {
+            button.setOnClickListener(v -> {
+                Intent intent = new Intent(this, View_categories.class);
+                intent.putExtra("categoryName", category);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+            });
+        } else {
+            Log.e("Error", "Button not found with ID: " + buttonId);
+        }
     }
 }

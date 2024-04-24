@@ -74,7 +74,7 @@
         app:srcCompat="@mipmap/logo" />
 
     <ImageButton
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_account"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:backgroundTint="#FFFFFF"
@@ -91,4 +91,295 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/view14"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:foreground="@mipmap/shop_card"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/view15"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="35dp"
+        android:background="#D8FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view14"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn_checkout"
+        android:layout_width="256dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="84dp"
+        android:backgroundTint="@color/grey"
+        android:text="Оформление заказа"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view15"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText6"
+        app:layout_constraintVertical_bias="0.106"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Оформление заказа"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toTopOf="@+id/view15" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:freezesText="false"
+        android:showText="false"
+        android:text="Доставка"
+        android:textColor="@color/black"
+        android:textOn="Самовывоз"
+        android:textSize="16sp"
+        android:thumbTint="@color/yellow"
+        android:trackTint="@color/yellow"
+        app:layout_constraintEnd_toStartOf="@+id/textView16"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="90dp"
+        android:text="Самовывоз"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="1. Проверьте личные данные"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:text="Phone"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="2. Введите адрес доставки"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="Адрес"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="@color/yellow"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <EditText
+        android:id="@+id/et_door"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="68dp"
+        android:ems="10"
+        android:hint="Квартира"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="@color/yellow"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/et_address" />
+
+    <EditText
+        android:id="@+id/et_entrance"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:ems="10"
+        android:hint="Подъезд"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="@color/yellow"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/et_floor"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/et_address" />
+
+    <EditText
+        android:id="@+id/et_floor"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:ems="10"
+        android:hint="Этаж"
+        android:inputType="text"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textColorHint="@color/yellow"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/et_door"
+        app:layout_constraintTop_toBottomOf="@+id/et_address" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="3. Выберите дату и время доставки"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/et_entrance" />
+
+    <Spinner
+        android:id="@+id/sp_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:soundEffectsEnabled="false"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <Spinner
+        android:id="@+id/sp_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/sp_date" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="4. Состав заказа"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/sp_time" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="5. Комментарии к заказу"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <EditText
+        android:id="@+id/editTextText6"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:ems="10"
+        android:inputType="text|textLongMessage"
+        app:layout_constraintEnd_toEndOf="@+id/view15"
+        app:layout_constraintStart_toStartOf="@+id/view15"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

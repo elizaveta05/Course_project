@@ -19,7 +19,7 @@
         app:srcCompat="@mipmap/logo" />
 
     <ImageButton
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_account"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:backgroundTint="#FFFFFF"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_account" />
 
     <View
         android:id="@+id/view3"
@@ -106,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view4" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/btn_delete"
         android:layout_width="36dp"
         android:layout_height="37dp"
         android:layout_marginEnd="20dp"
@@ -127,7 +127,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/view10"
-        app:layout_constraintEnd_toStartOf="@+id/imageView7"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delete"
         app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="@+id/view10"
         app:layout_constraintTop_toTopOf="@+id/view10" />
@@ -172,9 +172,9 @@
     <Button
         android:id="@+id/button"
         android:layout_width="235dp"
-        android:layout_height="35dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="36dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/grey"
         android:text="Оформить заказ"
         android:textColor="#000000"
@@ -187,8 +187,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ll_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:clickable="true"
         android:isScrollContainer="false"

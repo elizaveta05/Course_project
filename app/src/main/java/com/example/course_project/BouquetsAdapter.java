@@ -68,16 +68,15 @@ public class BouquetsAdapter extends RecyclerView.Adapter<BouquetsAdapter.Bouque
         holder.productName.setOnClickListener(onClickListener);
         holder.productPrice.setOnClickListener(onClickListener);
 
-       /* holder.btnBuy.setOnClickListener(v->{
+       holder.btnBuy.setOnClickListener(v->{
             if(FirebaseAuth.getInstance().getCurrentUser() != null){
-                Bouquets selectedBouquet = bouquetsList.get(position);
-                if(selectedBouquet!=null) {
-                    addToOrderCart(selectedBouquet);
+                if(bouquet!=null) {
+                    addToOrderCart(bouquet);
                 } else {Toast.makeText(context, "Ошибка!", Toast.LENGTH_SHORT).show();}
 
             }else {Toast.makeText(context, "Войдите в аккаунт", Toast.LENGTH_SHORT).show();}
         });
-*/
+
 
         holder.btnFavorite.setOnClickListener(v -> {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
@@ -90,12 +89,10 @@ public class BouquetsAdapter extends RecyclerView.Adapter<BouquetsAdapter.Bouque
                                 .addOnSuccessListener(queryDocumentSnapshots -> {
                                     if (!queryDocumentSnapshots.isEmpty()) {
                                         removeBouquetFromFavorites(bouquet);
-                                        // selectedBouquet.setFavorite(false);
                                         Toast.makeText(context, "Запрос на удаление!", Toast.LENGTH_SHORT).show();
                                     } else if (queryDocumentSnapshots.isEmpty()) {
                                         Toast.makeText(context, "Запрос на добавление!", Toast.LENGTH_SHORT).show();
                                         addBouquetToFavorites(bouquet);
-                                        //bouquet.setFavorite(true);
                                     }
                                 })
                                 .addOnFailureListener(e -> {
@@ -138,6 +135,7 @@ public class BouquetsAdapter extends RecyclerView.Adapter<BouquetsAdapter.Bouque
             productName.setText(bouquet.getName());
             productPrice.setText(String.format("%s ₽", bouquet.getCost()));
 
+
             db.collection("FavoriteList")
                     .whereEqualTo("userId", FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .whereEqualTo("bouquetId", bouquet.getId())
@@ -179,7 +177,7 @@ public class BouquetsAdapter extends RecyclerView.Adapter<BouquetsAdapter.Bouque
                     })
                     .addOnFailureListener(e -> {
                         Log.e("ORDER", "Error adding bouquet to order", e);
-                        Toast.makeText(context, "Error adding bouquet to order", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Букет не добавлен в корзину!", Toast.LENGTH_SHORT).show();
                     });
         } else {
             Log.d("Debug", "Bouquet ID is null");

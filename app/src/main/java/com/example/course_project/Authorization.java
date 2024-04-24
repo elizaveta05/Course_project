@@ -57,7 +57,7 @@ public class Authorization extends AppCompatActivity {
     }
 
     private void setupNavigationButtons() {
-        ImageButton btn_back = findViewById(R.id.btn_back);
+        ImageButton btn_back = findViewById(R.id.btn_account);
         btn_back.setOnClickListener(v -> goToActivity(activity_account.class));
 
         ImageButton btn_main = findViewById(R.id.btn_main);

@@ -27,6 +27,8 @@ public class Bouquets {
 
     private boolean isFavorite;
     private String categoryName;
+    private int quantity; // Добавляем поле для хранения количества букетов данного вида
+
 
     public Bouquets() {
         // Empty constructor (required for Firebase)
@@ -112,5 +114,15 @@ public class Bouquets {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    // Метод для получения количества букетов данного вида
+    public int getQuantity() {
+        return quantity;
+    }
+
+    // Метод для установки количества букетов данного вида
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

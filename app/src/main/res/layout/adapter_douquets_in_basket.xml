@@ -2,83 +2,131 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
 
     <View
         android:id="@+id/view13"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:background="@color/white"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#C9FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/iv_bouquet_image"
-        android:layout_width="156dp"
-        android:layout_height="147dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="108dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/view13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="@+id/view13"
+        app:layout_constraintTop_toTopOf="@+id/view13"
+        app:layout_constraintVertical_bias="0.523"
         app:srcCompat="@mipmap/image_flower" />
 
     <TextView
         android:id="@+id/tv_bouquet_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_width="229dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="3dp"
         android:text="НаименованиеБукета"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.605"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delete_bouquet"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toEndOf="@+id/iv_bouquet_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="35dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/btn_reduce"
+        android:layout_width="25dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="4dp"
         android:backgroundTint="@color/white"
         android:scaleType="centerCrop"
+        android:src="@mipmap/icon_minus"
         app:layout_constraintBottom_toBottomOf="@+id/view13"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/icon_minus" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="35dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/white"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/view13"
-        app:layout_constraintEnd_toStartOf="@+id/tv_quantity"
-        app:srcCompat="@mipmap/icon_plus" />
+        app:layout_constraintEnd_toEndOf="@+id/view13" />
 
     <TextView
         android:id="@+id/tv_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view13"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3" />
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/view13"
+        app:layout_constraintEnd_toStartOf="@id/btn_reduce"
+        app:layout_constraintTop_toBottomOf="@+id/tv_bouquet_cost"
+        app:layout_constraintVertical_bias="0.958" />
+
+    <ImageButton
+        android:id="@+id/btn_add"
+        android:layout_width="25dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="3dp"
+        android:backgroundTint="@color/white"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@id/view13"
+        app:layout_constraintEnd_toStartOf="@id/tv_quantity"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_bouquet_name"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@mipmap/icon_plus" />
 
     <TextView
         android:id="@+id/tv_bouquet_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="5dp"
         android:text="Стоимость"
-        app:layout_constraintBottom_toBottomOf="@+id/view13"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toEndOf="@+id/iv_bouquet_image" />
+        android:textColor="@color/yellow"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_reduce"
+        app:layout_constraintEnd_toStartOf="@+id/btn_info"
+        app:layout_constraintTop_toBottomOf="@id/tv_bouquet_name"
+        app:layout_constraintVertical_bias="0.695" />
+
+    <ImageButton
+        android:id="@+id/btn_delete_bouquet"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
+        android:backgroundTint="@color/white"
+        android:tint="@color/yellow"
+        app:layout_constraintEnd_toEndOf="@id/view13"
+        app:layout_constraintTop_toTopOf="@id/view13"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <ImageView
+        android:id="@+id/btn_info"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/white"
+        android:tint="@color/grey"
+        app:layout_constraintBottom_toTopOf="@id/btn_reduce"
+        app:layout_constraintEnd_toEndOf="@+id/view13"
+        app:layout_constraintTop_toBottomOf="@id/btn_delete_bouquet"
+        app:layout_constraintVertical_bias="0.974"
+        app:srcCompat="@android:drawable/ic_dialog_info" />
 </androidx.constraintlayout.widget.ConstraintLayout>
