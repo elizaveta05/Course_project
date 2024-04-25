@@ -305,7 +305,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp" />
+                android:layout_marginEnd="5dp" >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textViewTotalCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Итоговая стоимость:"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView21"
@@ -317,7 +329,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/editTextText6"
+                android:id="@+id/commit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"

@@ -25,7 +25,6 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
         TextView textView = (TextView) view;
         textView.setTextColor(Color.BLACK);
         textView.setBackgroundColor(Color.WHITE); // Установите белый цвет фона
-
         return view;
     }
 

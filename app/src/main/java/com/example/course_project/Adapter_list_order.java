@@ -20,17 +20,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Adapter_list_order extends RecyclerView.Adapter<Adapter_list_order.OrderViewHolder> {
     private Context context;
     private List<Bouquets> bouquetsList;
     private ArrayList<Bouquets> bouquetQuantities = new ArrayList<>();
     private static FirebaseFirestore db;
+    private OrderListener listener;
 
-    public Adapter_list_order(Context context, List<Bouquets> bouquetsList) {
+    public Adapter_list_order(Context context, List<Bouquets> bouquetsList, OrderListener listener) {
         this.context = context;
         this.bouquetsList = bouquetsList;
         this.db = FirebaseFirestore.getInstance();
+        this.listener=listener;
+
     }
 
     public void setfetchBouquetQuantitiesByUser(ArrayList<Bouquets> bouquets) {
@@ -64,6 +68,7 @@ public class Adapter_list_order extends RecyclerView.Adapter<Adapter_list_order.
             // Отображаем только один раз с учетом общего количества и стоимости
             holder.bind(currentBouquet, totalQuantity);
         }
+
     }
 
     @Override
@@ -92,9 +97,58 @@ public class Adapter_list_order extends RecyclerView.Adapter<Adapter_list_order.
             int totalCost = Integer.parseInt(bouquet.getCost()) * totalQuantity;
             bouquetCost.setText(String.format("%s ₽", totalCost));
             bouquetQuantity.setText(String.format("%s шт.", totalQuantity));
+
         }
     }
-    public void fetchBouquetQuantitiesByUser() {
+    public interface OrderListener {
+        void onClick(Bouquets bouquet);
+
+        void onCostReceived(int totalCost);
+    }
+    public void getCost(CostListener_shop_cart listener) {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        AtomicInteger total = new AtomicInteger();
+        AtomicInteger loadedBouquets = new AtomicInteger();
+
+        db.collection("ListOrder")
+                .whereEqualTo("userId", userId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    int totalBouquets = queryDocumentSnapshots.size();
+                    if (totalBouquets == 0) {
+                        listener.onCostReceived(0);
+                    }
+
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        String bouquetId = documentSnapshot.getString("bouquetId");
+
+                        if (bouquetId != null) {
+                            db.collection("Bouquets")
+                                    .document(bouquetId)
+                                    .get()
+                                    .addOnSuccessListener(bouquetDocument -> {
+                                        if (bouquetDocument.exists()) {
+                                            Bouquets orderBouquet = bouquetDocument.toObject(Bouquets.class);
+                                            orderBouquet.setId(bouquetDocument.getId());
+                                            if (orderBouquet != null) {
+                                                total.addAndGet(Integer.parseInt(orderBouquet.getCost()));
+                                            }
+                                        }
+
+                                        loadedBouquets.incrementAndGet();
+
+                                        if (loadedBouquets.get() == totalBouquets) {
+                                            listener.onCostReceived(total.get());
+                                        }
+
+                                    })
+                                    .addOnFailureListener(e -> Log.e("ORDER", "Error getting bouquet document", e));
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("ORDER", "Error getting order bouquets for user", e));
+    }
+        public void fetchBouquetQuantitiesByUser() {
         bouquetQuantities.clear(); // Очищаем список избранных букетов
 
         // Получаем идентификатор текущего пользователя
