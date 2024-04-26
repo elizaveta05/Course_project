@@ -96,8 +96,21 @@ public class Profile extends AppCompatActivity {
         ImageButton btn_main = findViewById(R.id.btn_main);
         btn_main.setOnClickListener(v -> startNewActivity(MainActivity.class));
 
-        ImageButton btn_favorite = findViewById(R.id.btn_favorite);
-        btn_favorite.setOnClickListener(v -> navigateToFavorite());
+        // Настройка обработчика клика для кнопки "Избранное"
+        ImageButton btn_favorites = findViewById(R.id.btn_favorites);
+        btn_favorites.setOnClickListener(v -> {
+            if (currentUser != null) {
+                Intent intent = new Intent(this, Favorite.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+
+            } else {
+                Intent intent = new Intent(this, activity_account.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0); // Убрать анимацию перехода
+                Toast.makeText(this, "Войдите в аккаунт для добавления в избранное", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ImageButton btn_shop = findViewById(R.id.btn_shop);
         btn_shop.setOnClickListener(v -> startNewActivity(Shop.class));
@@ -114,17 +127,6 @@ public class Profile extends AppCompatActivity {
         overridePendingTransition(0, 0); // Убрать анимацию перехода
     }
 
-    private void navigateToFavorite() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intent;
-        if (currentUser != null) {
-            intent = new Intent(this, Favorite.class);
-        } else {
-
-            intent = new Intent(this, activity_account.class);
-        }
-        startActivity(intent);
-    }
     // Редактирование полей профиля
     private void enableEditProfileFields() {
         editTextName.setEnabled(true);

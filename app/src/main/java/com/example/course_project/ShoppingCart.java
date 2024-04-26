@@ -220,8 +220,6 @@ public class ShoppingCart extends AppCompatActivity implements Adapter_list_orde
             db.collection("OrderRegistration")
                     .add(orderData)
                     .addOnSuccessListener(orderDocumentRef -> {
-                        // Оповещение об успешно оформленном заказе
-                        //Toast.makeText(ShoppingCart.this, "Заказ успешно оформлен в OrderRegistration", Toast.LENGTH_SHORT).show();
 
                         // Получаем ID только что созданного документа OrderRegistration
                         String orderID = orderDocumentRef.getId();
@@ -272,7 +270,8 @@ public class ShoppingCart extends AppCompatActivity implements Adapter_list_orde
                                                         Log.d("OrderItemsBouquet", "Added order item with ID: " + orderItemDocRef.getId());
 
                                                         db.collection("ListOrder")
-                                                                .whereEqualTo("userId", currentUser)
+                                                                .whereEqualTo("bouquetId", bouquetID)
+                                                                .whereEqualTo("userId", userID)
                                                                 .get()
                                                                 .addOnSuccessListener(queryDocumentSnapshots -> {
                                                                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
@@ -280,16 +279,13 @@ public class ShoppingCart extends AppCompatActivity implements Adapter_list_orde
                                                                                 .addOnSuccessListener(aVoid -> {
                                                                                     adapter.notifyDataSetChanged();
                                                                                     Log.d("FAVORITES", "Bouquet removed from favorites successfully!");
-                                                                                    Toast.makeText(this, "Коризан очищена!", Toast.LENGTH_SHORT).show();
                                                                                 })
                                                                                 .addOnFailureListener(e -> {
                                                                                     Log.e("FAVORITES", "Error removing bouquet from favorites", e);
-                                                                                    Toast.makeText(this, "Корзина не очищена!", Toast.LENGTH_SHORT).show();
                                                                                 });
                                                                     }
                                                                 })
                                                                 .addOnFailureListener(e -> Log.e("FAVORITES", "Error getting documents", e));
-                                                        Toast.makeText(ShoppingCart.this, "Заказ успешно создан!", Toast.LENGTH_SHORT).show();
                                                         Intent intent= new Intent(this, MainActivity.class);
                                                         startActivity(intent);
                                                         overridePendingTransition(0, 0); // Убрать анимацию перехода
